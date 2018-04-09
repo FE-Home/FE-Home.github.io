@@ -22,7 +22,7 @@ categories:
 
 ## <span id="base">(2)基本环境搭建</span>
 
-* git clone git@github.com:tianyuqingkong/tianyuqingkong.github.io.git localFileName (将源代码下载本地)
+* git clone git@github.com:FE-Home/FE-Home.github.io.git localFileName (将源代码下载本地)
 
 * git checkout -b hexo origin/hexo (将分支切换到hexo分支)
 
@@ -52,4 +52,4 @@ categories:
 
 * git add .   git commit -m '修改' git push origin hexo(将源文件同步到hexo分支:这里有点冗余最终可能会做成脚本命令)
 
-* 最终在https://tianyuqingkong.github.io/看到你的文章
+* 最终在https://FE-Home.github.io/看到你的文章
