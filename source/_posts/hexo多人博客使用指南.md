@@ -28,11 +28,11 @@ categories:
 
 * cnpm i (下载js依赖包)
 
-* git clone https://github.com/iissnan/hexo-theme-next themes/next (下载博客皮肤,如果clone慢的话也可以直接通过浏览器下载放在themes的新建的next文件夹下)
+
 
 * hexo generate (生成静态文件)
 
-* hexo server (运行本地服务，如果在http://localhost:4000/可以看到相应的网页，则说明基本环境搭建成功)
+* hexo server (运行本地服务，如果在http://localhost:4000/可以看到相应的网页，则说明基本环境搭建成功,如果不成功有可能是端口造成的可以换个端口使用如： hexo server -p 4090)
 
 ![base](hexo多人博客使用指南/base.png)
  需要注意的是是前两个步骤只需要在第一次写博客的时候需要执行的，而后面的步骤在每次写博客都要去执行
