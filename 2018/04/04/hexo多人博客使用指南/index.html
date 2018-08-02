@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇指南意在指导本团队开发者使用由hexo搭建的多人博客 面向阅读对象：专业开发者  github与ssh 基本环境搭建 如何写博客 如何上传文章或博客系统修改 对博客系统进行修改(未完待续)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo 多人博客使用指南">
+<meta property="og:url" content="http://yoursite.com/2018/04/04/hexo多人博客使用指南/index.html">
+<meta property="og:site_name" content="国双前端">
+<meta property="og:description" content="本篇指南意在指导本团队开发者使用由hexo搭建的多人博客 面向阅读对象：专业开发者  github与ssh 基本环境搭建 如何写博客 如何上传文章或博客系统修改 对博客系统进行修改(未完待续)">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/04/04/hexo多人博客使用指南/base.png">
+<meta property="og:updated_time" content="2018-08-02T07:37:24.858Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo 多人博客使用指南">
+<meta name="twitter:description" content="本篇指南意在指导本团队开发者使用由hexo搭建的多人博客 面向阅读对象：专业开发者  github与ssh 基本环境搭建 如何写博客 如何上传文章或博客系统修改 对博客系统进行修改(未完待续)">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/04/hexo多人博客使用指南/base.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/04/hexo多人博客使用指南/"/>
+
+
+
+
+
+  <title>hexo 多人博客使用指南 | 国双前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国双前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/hexo多人博客使用指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">hexo 多人博客使用指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T00:00:00+08:00">
+                2018-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇指南意在指导本团队开发者使用由hexo搭建的多人博客</p>
+<p>面向阅读对象：专业开发者</p>
+<ol>
+<li><a href="#github_ssh">github与ssh</a></li>
+<li><a href="#base">基本环境搭建</a></li>
+<li><a href="#write">如何写博客</a></li>
+<li><a href="#upload">如何上传文章或博客系统修改</a></li>
+<li><a href="#modifiy">对博客系统进行修改(未完待续)</a></li>
+</ol>
+<a id="more"></a>
+<h2 id="1-github与ssh"><a href="#1-github与ssh" class="headerlink" title="(1)github与ssh"></a><span id="github_ssh">(1)github与ssh</span></h2><ul>
+<li>先将ssh添加到github上避免每次上传文章时都要输入账号密码</li>
+</ul>
+<h2 id="2-基本环境搭建"><a href="#2-基本环境搭建" class="headerlink" title="(2)基本环境搭建"></a><span id="base">(2)基本环境搭建</span></h2><ul>
+<li><p>git clone <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:FE-Home/FE-Home.github.io.git localFileName (将源代码下载本地)</p>
+</li>
+<li><p>git checkout -b hexo origin/hexo (将分支切换到hexo分支)</p>
+</li>
+<li><p>cnpm i (下载js依赖包)</p>
+</li>
+<li><p>git clone <a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a> themes/next (下载博客皮肤,如果clone慢的话也可以直接通过浏览器下载放在themes的新建的next文件夹下)</p>
+</li>
+<li><p>hexo generate (生成静态文件)</p>
+</li>
+<li><p>hexo server (运行本地服务，如果在<a href="http://localhost:4000/可以看到相应的网页，则说明基本环境搭建成功" target="_blank" rel="noopener">http://localhost:4000/可以看到相应的网页，则说明基本环境搭建成功</a>)</p>
+</li>
+</ul>
+<p><img src="/2018/04/04/hexo多人博客使用指南/base.png" alt="base"><br> 需要注意的是是前两个步骤只需要在第一次写博客的时候需要执行的，而后面的步骤在每次写博客都要去执行</p>
+<h2 id="3-如何写博客"><a href="#3-如何写博客" class="headerlink" title="(3)如何写博客"></a><span id="write">(3)如何写博客</span></h2><ul>
+<li><p>写博客主要在source的_posts下面利用markdown写相应的文章，具体语法可以参考<a href="https://www.jianshu.com/p/b03a8d7b1719" target="_blank" rel="noopener">markdown语法</a></p>
+</li>
+<li><p>hexo写博客可以参照 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo文档</a>,这里面主要有三个命令<a href="https://hexo.io/zh-cn/docs/generating.html" target="_blank" rel="noopener">hexo generate</a>生成命令，<a href="https://hexo.io/zh-cn/docs/server.html" target="_blank" rel="noopener">hexo server</a>服务命令，<a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="noopener">hexo deploy</a>部署命令</p>
+</li>
+</ul>
+<h2 id="4-如何上传文章或博客系统修改"><a href="#4-如何上传文章或博客系统修改" class="headerlink" title="(4)如何上传文章或博客系统修改"></a><span id="upload">(4)如何上传文章或博客系统修改</span></h2><ul>
+<li><p>记得每次上传前使用git pull(先将更新从远端拉取)</p>
+</li>
+<li><p>hexo deploy (将静态文件提交到master)</p>
+</li>
+<li><p>git add .   git commit -m ‘修改’ git push origin hexo(将源文件同步到hexo分支:这里有点冗余最终可能会做成脚本命令)</p>
+</li>
+<li><p>最终在<a href="https://FE-Home.github.io/" target="_blank" rel="noopener">https://FE-Home.github.io/</a> 看到你的文章</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-github与ssh"><span class="nav-number">1.</span> <span class="nav-text">(1)github与ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-基本环境搭建"><span class="nav-number">2.</span> <span class="nav-text">(2)基本环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-如何写博客"><span class="nav-number">3.</span> <span class="nav-text">(3)如何写博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-如何上传文章或博客系统修改"><span class="nav-number">4.</span> <span class="nav-text">(4)如何上传文章或博客系统修改</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
