@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇旨在整理小程序转mpVue遇到的一些基础事项 改造前：1&amp;lt;input class=&quot;weui-cell__ft &amp;#123;&amp;#123;class&amp;#125;&amp;#125;&quot; placeholder=&apos;--&apos; value=&apos;&amp;#123;&amp;#123;item.userName&amp;#125;&amp;#125;&apos; bindtap=&quot;gotoEdits&quot; data-item=&quot;&amp;#123;&amp;#123;it">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序转Mpvue入门篇">
+<meta property="og:url" content="http://yoursite.com/2018/08/17/小程序转Mpvue入门篇/index.html">
+<meta property="og:site_name" content="国双前端">
+<meta property="og:description" content="本篇旨在整理小程序转mpVue遇到的一些基础事项 改造前：1&amp;lt;input class=&quot;weui-cell__ft &amp;#123;&amp;#123;class&amp;#125;&amp;#125;&quot; placeholder=&apos;--&apos; value=&apos;&amp;#123;&amp;#123;item.userName&amp;#125;&amp;#125;&apos; bindtap=&quot;gotoEdits&quot; data-item=&quot;&amp;#123;&amp;#123;it">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-24T07:04:33.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序转Mpvue入门篇">
+<meta name="twitter:description" content="本篇旨在整理小程序转mpVue遇到的一些基础事项 改造前：1&amp;lt;input class=&quot;weui-cell__ft &amp;#123;&amp;#123;class&amp;#125;&amp;#125;&quot; placeholder=&apos;--&apos; value=&apos;&amp;#123;&amp;#123;item.userName&amp;#125;&amp;#125;&apos; bindtap=&quot;gotoEdits&quot; data-item=&quot;&amp;#123;&amp;#123;it">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/17/小程序转Mpvue入门篇/"/>
+
+
+
+
+
+  <title>小程序转Mpvue入门篇 | 国双前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国双前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/小程序转Mpvue入门篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小程序转Mpvue入门篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baolong/" itemprop="url" rel="index">
+                    <span itemprop="name">baolong</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇旨在整理小程序转mpVue遇到的一些基础事项</p>
+<p>改造前：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"weui-cell__ft &#123;&#123;class&#125;&#125;"</span> <span class="attr">placeholder</span>=<span class="string">'--'</span> <span class="attr">value</span>=<span class="string">'&#123;&#123;item.userName&#125;&#125;'</span> <span class="attr">bindtap</span>=<span class="string">"gotoEdits"</span> <span class="attr">data-item</span>=<span class="string">"&#123;&#123;item&#125;&#125;"</span> <span class="attr">data-isAgent</span>=<span class="string">"false"</span> <span class="attr">disabled</span>=<span class="string">"&#123;&#123;disabledInput&#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>改造后：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"weui-cell__ft"</span> <span class="attr">:class</span>=<span class="string">"class"</span> <span class="attr">placeholder</span>=<span class="string">'--'</span> <span class="attr">:model.lazy</span>=<span class="string">'item.userName'</span> @<span class="attr">click</span>=<span class="string">"gotoEdits(item, false)"</span> <span class="attr">:disabled</span>=<span class="string">"disabledInput"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="改造说明"><a href="#改造说明" class="headerlink" title="改造说明"></a>改造说明</h2><h3 id="不可使用-data-xxx-属性"><a href="#不可使用-data-xxx-属性" class="headerlink" title="不可使用 data-xxx 属性"></a>不可使用 data-xxx 属性</h3><p>data-xxx 写法是小程序提供的标签值绑定，有利于标签方法获取到需要的值，但是vue中支持对方法直接传值，同时不支持 data-xxx写法，所以需要将 data-xxx 中的值直接写成以下方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bindtap=<span class="string">"gotoEdits"</span> data-item=<span class="string">"&#123;&#123;item&#125;&#125;"</span> data-isAgent=<span class="string">"false"</span></span><br></pre></td></tr></table></figure>
+<p>转换成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@click=<span class="string">"gotoEdits(item, false)"</span></span><br></pre></td></tr></table></figure>
+<h3 id="正常样式和动态样式需要拆分"><a href="#正常样式和动态样式需要拆分" class="headerlink" title="正常样式和动态样式需要拆分"></a>正常样式和动态样式需要拆分</h3><p>小程序可以使用 xxx 绑定样式，vue则需要使用 <code>:class=&quot;&quot;</code> 绑定样式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"weui-cell__ft &#123;&#123;class&#125;&#125;"</span></span><br></pre></td></tr></table></figure>
+<p>转换成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"weui-cell__ft"</span> :<span class="class"><span class="keyword">class</span></span>=<span class="string">"class"</span></span><br></pre></td></tr></table></figure>
+<h3 id="value值的两种改造方式"><a href="#value值的两种改造方式" class="headerlink" title="value值的两种改造方式"></a>value值的两种改造方式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:value = <span class="string">"item.userName"</span></span><br></pre></td></tr></table></figure>
+<p>或者：（推荐使用第二种双向绑定，这样就不需要再去手动赋值）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:model = <span class="string">"item.userName"</span></span><br></pre></td></tr></table></figure>
+<h3 id="其他属性值"><a href="#其他属性值" class="headerlink" title="其他属性值"></a>其他属性值</h3><p>大部分其他属性值遇到动态绑定的需要在属性前添加 <code>:</code>， 并去除双 {} 符号</p>
+<ul>
+<li><h4 id="if属性"><a href="#if属性" class="headerlink" title="if属性"></a>if属性</h4></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wx:<span class="keyword">if</span>=<span class="string">"item"</span></span><br></pre></td></tr></table></figure>
+<p>转换成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v-<span class="keyword">if</span>=<span class="string">"item"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="for-遍历"><a href="#for-遍历" class="headerlink" title="for 遍历"></a>for 遍历</h4></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wx:<span class="keyword">for</span>=<span class="string">"Arr"</span></span><br></pre></td></tr></table></figure>
+<p>转换成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v-<span class="keyword">for</span>=<span class="string">"(item , index) in Arr"</span> :key=<span class="string">"index"</span></span><br></pre></td></tr></table></figure>
+<h3 id="事件对照表"><a href="#事件对照表" class="headerlink" title="事件对照表"></a>事件对照表</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 事件映射表，左侧为 WEB 事件，右侧为 小程序 对应事件</span></span><br><span class="line">&#123;</span><br><span class="line">    click: <span class="string">'tap'</span>,</span><br><span class="line">    touchstart: <span class="string">'touchstart'</span>,</span><br><span class="line">    touchmove: <span class="string">'touchmove'</span>,</span><br><span class="line">    touchcancel: <span class="string">'touchcancel'</span>,</span><br><span class="line">    touchend: <span class="string">'touchend'</span>,</span><br><span class="line">    tap: <span class="string">'tap'</span>,</span><br><span class="line">    longtap: <span class="string">'longtap'</span>,</span><br><span class="line">    input: <span class="string">'input'</span>,</span><br><span class="line">    change: <span class="string">'change'</span>,</span><br><span class="line">    submit: <span class="string">'submit'</span>,</span><br><span class="line">    blur: <span class="string">'blur'</span>,</span><br><span class="line">    focus: <span class="string">'focus'</span>,</span><br><span class="line">    reset: <span class="string">'reset'</span>,</span><br><span class="line">    confirm: <span class="string">'confirm'</span>,</span><br><span class="line">    columnchange: <span class="string">'columnchange'</span>,</span><br><span class="line">    linechange: <span class="string">'linechange'</span>,</span><br><span class="line">    error: <span class="string">'error'</span>,</span><br><span class="line">    scrolltoupper: <span class="string">'scrolltoupper'</span>,</span><br><span class="line">    scrolltolower: <span class="string">'scrolltolower'</span>,</span><br><span class="line">    scroll: <span class="string">'scroll'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>input</code> 和 <code>textarea</code> 中 <code>change</code> 事件会被转为 <code>blur</code> 事件。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/17/移动端app部署流程/" rel="next" title="移动端 app 部署流程">
+                <i class="fa fa-chevron-left"></i> 移动端 app 部署流程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/17/计算机组成原理——数值的表示/" rel="prev" title="计算机组成原理——数值的表示">
+                计算机组成原理——数值的表示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#改造说明"><span class="nav-number">1.</span> <span class="nav-text">改造说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不可使用-data-xxx-属性"><span class="nav-number">1.1.</span> <span class="nav-text">不可使用 data-xxx 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正常样式和动态样式需要拆分"><span class="nav-number">1.2.</span> <span class="nav-text">正常样式和动态样式需要拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#value值的两种改造方式"><span class="nav-number">1.3.</span> <span class="nav-text">value值的两种改造方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他属性值"><span class="nav-number">1.4.</span> <span class="nav-text">其他属性值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#if属性"><span class="nav-number">1.4.1.</span> <span class="nav-text">if属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for-遍历"><span class="nav-number">1.4.2.</span> <span class="nav-text">for 遍历</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件对照表"><span class="nav-number">1.5.</span> <span class="nav-text">事件对照表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

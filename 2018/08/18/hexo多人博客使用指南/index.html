@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="1.AMD/CMD/CommonJs是JS模块化开发的标准，目前对应的实现是RequireJs/SeaJs/nodeJs. 2.CommonJs主要针对服务端，AMD/CMD主要针对浏览器端，所以最容易混淆的是AMD/CMD:服务器端一般采用同步加载文件，也就是说需要某个模块，服务器端便停下来，等待它加载再执行.浏览器端要保证效率，需要采用异步加载. 3.AMD/CMD区别，虽然都是并行加载js">
+<meta name="description" content="大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下  js原型 js原型练习题 原型总结 原型链继承总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模块化">
-<meta property="og:url" content="http://yoursite.com/2017/08/02/前端模块化区别/index.html">
+<meta property="og:title" content="js原型该如何深入理解">
+<meta property="og:url" content="http://yoursite.com/2018/08/18/hexo多人博客使用指南/index.html">
 <meta property="og:site_name" content="国双前端">
-<meta property="og:description" content="1.AMD/CMD/CommonJs是JS模块化开发的标准，目前对应的实现是RequireJs/SeaJs/nodeJs. 2.CommonJs主要针对服务端，AMD/CMD主要针对浏览器端，所以最容易混淆的是AMD/CMD:服务器端一般采用同步加载文件，也就是说需要某个模块，服务器端便停下来，等待它加载再执行.浏览器端要保证效率，需要采用异步加载. 3.AMD/CMD区别，虽然都是并行加载js">
+<meta property="og:description" content="大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下  js原型 js原型练习题 原型总结 原型链继承总结">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-02T09:54:27.646Z">
+<meta property="og:updated_time" content="2018-08-24T07:04:33.877Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="模块化">
-<meta name="twitter:description" content="1.AMD/CMD/CommonJs是JS模块化开发的标准，目前对应的实现是RequireJs/SeaJs/nodeJs. 2.CommonJs主要针对服务端，AMD/CMD主要针对浏览器端，所以最容易混淆的是AMD/CMD:服务器端一般采用同步加载文件，也就是说需要某个模块，服务器端便停下来，等待它加载再执行.浏览器端要保证效率，需要采用异步加载. 3.AMD/CMD区别，虽然都是并行加载js">
+<meta name="twitter:title" content="js原型该如何深入理解">
+<meta name="twitter:description" content="大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下  js原型 js原型练习题 原型总结 原型链继承总结">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/02/前端模块化区别/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/18/hexo多人博客使用指南/"/>
 
 
 
 
 
-  <title>模块化 | 国双前端</title>
+  <title>js原型该如何深入理解 | 国双前端</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/前端模块化区别/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/hexo多人博客使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tianyu">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">模块化</h1>
+          <h1 class="post-title" itemprop="name headline">js原型该如何深入理解</h1>
         
 
         <div class="post-meta">
@@ -261,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-02T00:00:00+08:00">
-                2017-08-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T00:00:00+08:00">
+                2018-08-18
               </time>
             
 
@@ -271,28 +271,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/commonJS-AMD-CMD-moudle/" itemprop="url" rel="index">
-                    <span itemprop="name">commonJS/AMD/CMD/moudle</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -321,20 +299,33 @@
       
 
       
-        <ul>
-<li>1.AMD/CMD/CommonJs是JS模块化开发的标准，目前对应的实现是RequireJs/SeaJs/nodeJs.</li>
-<li>2.CommonJs主要针对服务端，AMD/CMD主要针对浏览器端，所以最容易混淆的是AMD/CMD:服务器端一般采用同步加载文件，也就是说需要某个模块，服务器端便停下来，等待它加载再执行.浏览器端要保证效率，需要采用异步加载.</li>
-<li>3.AMD/CMD区别，虽然都是并行加载js文件，但还是有所区别，AMD是预加载，在并行加载js文件同时，还会解析执行该模块（因为还需要执行，所以在加载某个模块前，这个模块的依赖模块需要先加载完成）；而CMD是懒加载，虽然会一开始就并行加载js文件，但是不会执行，而是在需要的时候才执行。</li>
-<li><p>4.AMD/CMD的优缺点.一个的优点就是另一个的缺点， 可以对照浏览。   </p>
-<pre><code> AMD优点：加载快速，尤其遇到多个大文件，因为并行解析，所以同一时间可以解析多个文件。
- AMD缺点：并行加载，异步处理，加载顺序不一定，可能会造成一些困扰，甚至为程序埋下大坑。
-
-CMD优点：因为只有在使用的时候才会解析执行js文件，因此，每个JS文件的执行顺序在代码中是有体现的，是可控的。
-CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步执行（串行执行），因此时间是所有文件解析执行时间之和，尤其在文件较多较大时，这种缺点尤为明显。
-</code></pre></li>
-<li>5.如何使用？CommonJs的话，因为nodeJs就是它的实现，所以使用node就行，也不用引入其他包。AMD则是通过&lt;script&gt;标签引入RequireJs，具体语法还是去看官方文档或者百度一下吧。CMD则是引入SeaJs。</li>
-<li>6.commonJS/AMD/CMD/moudle都是动态加载的也是就在代码执行前不知道依赖的，moudle则是静态的，在代码执行之前已经确定了依赖关系。</li>
-</ul>
+        <p>大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下</p>
+<ol>
+<li>js原型</li>
+<li>js原型练习题</li>
+<li>原型总结</li>
+<li>原型链继承总结</li>
+</ol>
+<a id="more"></a>
+<h2 id="1-js原型"><a href="#1-js原型" class="headerlink" title="(1) js原型"></a><span id="github_ssh">(1) js原型</span></h2><p>*先来讲一下我对原型的理解吧，首先原型是什么，原型是一个对象？还是一个实例呢，其实原型是一个对象，相当于一个构造函数的实例，下面举个例子</p>
+<p>function Person(name,age,number){<br>    this.name=name;<br>    this.age=age;<br>    this.number=number;<br>}//构造函数<br>//实例<br>var person1=new Person(likaizhu,24,1);<br>var person2=new Person(zhangshaoqi,22,2);</p>
+<p>if(person1.constructor==Person<br>)//true</p>
+<p>if(person2.constructor==Person<br>)//true</p>
+<p>//<br>Person.prototype.constructor==Person<br>person1.constructor==Person<br>person1.<strong>proto</strong>==Person.prototype<br>Person.<strong>proto</strong>==Function.prototype<br>Object.<strong>proto</strong>==Function.prototype<br>Person.prototype.<strong>proto</strong>==Object.prototype<br>Object.prototype.<strong>proto</strong>==null</p>
+<p>*理解一下<br>函数上有prototype属性<br>原型对象相当于构造函数的一个实例  Person.prototype相当于person1<br>构造函数上有prototype constructor需要在prototype上获取<br>实例上是可以获取到construcor属性的</p>
+<p>*其中的一种继承方式—原型链继承<br>function Person(name){<br>    this.name=name;<br>};<br>Person.prototype={<br>    sayName:function(){<br>        return this.name<br>    }<br>};<br>var person1=new Person(‘likaizhu’);<br>person1.sayName()</p>
+<p>//<br>person1.<strong>proto</strong>===Person.prototype<br>Person.prototype.<strong>proto</strong>===Function.prototype</p>
+<h2 id="2-js原型练习题"><a href="#2-js原型练习题" class="headerlink" title="(2)js原型练习题"></a><span id="base">(2)js原型练习题</span></h2><p>1.person1.<strong>proto</strong> 是什么？<br>2.Person.<strong>proto</strong> 是什么？<br>3.Person.prototype.<strong>proto</strong> 是什么？<br>4.Object.<strong>proto</strong> 是什么？<br>5.Object.prototype__proto__ 是什么？<br>答案：<br>第一题：<br>因为 person1.<strong>proto</strong> === person1 的构造函数.prototype<br>因为 person1的构造函数 === Person<br>所以 person1.<strong>proto</strong> === Person.prototype</p>
+<p>第二题：<br>因为 Person.<strong>proto</strong> === Person的构造函数.prototype<br>因为 Person的构造函数 === Function<br>所以 Person.<strong>proto</strong> === Function.prototype</p>
+<p>第三题：<br>Person.prototype 是一个普通对象，我们无需关注它有哪些属性，只要记住它是一个普通对象。<br>因为一个普通对象的构造函数 === Object<br>所以 Person.prototype.<strong>proto</strong> === Object.prototype</p>
+<p>第四题，参照第二题，因为 Person 和 Object 一样都是构造函数</p>
+<p>第五题：<br>Object.prototype 对象也有proto属性，但它比较特殊，为 null 。因为 null 处于原型链的顶端，这个只能记住。<br>Object.prototype.<strong>proto</strong> === null</p>
+<h2 id="3-原型总结"><a href="#3-原型总结" class="headerlink" title="(3)原型总结"></a><span id="base">(3)原型总结</span></h2><p>构造函数.prototype.constructor===构造函数<br>实例.constructor===构造函数<br>构造函数.prototype===普通对象<br>构造函数.prototype.constructor==实例.constructor<br>实例.<strong>proto</strong>===构造函数.prototype</p>
+<p>构造器.<strong>proto</strong>==Function.prototype<br>构造器.prototype.<strong>proto</strong>==Object.prototype<br>构造器.constructor==Function</p>
+<h2 id="4-原型链继承总结"><a href="#4-原型链继承总结" class="headerlink" title="(4)原型链继承总结"></a><span id="base">(4)原型链继承总结</span></h2><p>function Person(){};<br>Person.prototype={<br>    name:’likaizhu’<br>};<br>var person1=new Person();<br>person1.<strong>proto</strong>通过<strong>proto</strong>去继承Person.prototype上的方法和属性<br>person1这个实例继承了Person这个构造函数原型上的所有方法和属性<br>当穿件一个新的对象的时候，想去调用方法，找不到去构造函数.prototype(原型)上去查找，然后再去构造函数.prototype.<strong>proto</strong>上去查找。</p>
+<p>function Person(name){<br>    this.name=name;<br>};<br>Person.prototype={<br>    sayName:function(){<br>        return name<br>    }<br>};//重写原型,Person是object,object.prototype是{}空对象<br>var p=new Person(‘likaizhu’);<br>p.<strong>proto</strong>===p.constructor.prototype<br>false</p>
+<p>function Person(name){<br>    this.name=name;<br>};<br>Person.prototype.getName=function(){<br>    return name<br>}//修改原型,原型是function<br>var p=new Person(‘likaizhu’);<br>p.<strong>proto</strong>===p.constructor.prototype</p>
+<p>true</p>
 
       
     </div>
@@ -359,15 +350,15 @@ CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/08/18/mapVue/" rel="next" title="如何在地图的自定义弹窗使用Vue">
+                <i class="fa fa-chevron-left"></i> 如何在地图的自定义弹窗使用Vue
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/05/JSON使用技巧/" rel="prev" title="JSON使用技巧">
-                JSON使用技巧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -419,8 +410,17 @@ CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步�
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -480,6 +480,22 @@ CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步�
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-js原型"><span class="nav-number">1.</span> <span class="nav-text">(1) js原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-js原型练习题"><span class="nav-number">2.</span> <span class="nav-text">(2)js原型练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-原型总结"><span class="nav-number">3.</span> <span class="nav-text">(3)原型总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-原型链继承总结"><span class="nav-number">4.</span> <span class="nav-text">(4)原型链继承总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

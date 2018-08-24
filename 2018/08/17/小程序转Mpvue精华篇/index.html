@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本篇旨在整理小程序转mpvue中可能遇到的高级坑  组件库选择 mpVue生命周期迁移 data迁移与使用 默认事件值获取 页面栈数据获取 页面不卸载问题 module.exports 不可用 新建页面需要重新执行 npm run dev 模拟器正常，手机查看页面数据不显示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小程序转Mpvue精华篇">
+<meta property="og:url" content="http://yoursite.com/2018/08/17/小程序转Mpvue精华篇/index.html">
+<meta property="og:site_name" content="国双前端">
+<meta property="og:description" content="本篇旨在整理小程序转mpvue中可能遇到的高级坑  组件库选择 mpVue生命周期迁移 data迁移与使用 默认事件值获取 页面栈数据获取 页面不卸载问题 module.exports 不可用 新建页面需要重新执行 npm run dev 模拟器正常，手机查看页面数据不显示">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-24T07:04:33.887Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小程序转Mpvue精华篇">
+<meta name="twitter:description" content="本篇旨在整理小程序转mpvue中可能遇到的高级坑  组件库选择 mpVue生命周期迁移 data迁移与使用 默认事件值获取 页面栈数据获取 页面不卸载问题 module.exports 不可用 新建页面需要重新执行 npm run dev 模拟器正常，手机查看页面数据不显示">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/17/小程序转Mpvue精华篇/"/>
+
+
+
+
+
+  <title>小程序转Mpvue精华篇 | 国双前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国双前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/小程序转Mpvue精华篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小程序转Mpvue精华篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baolong/" itemprop="url" rel="index">
+                    <span itemprop="name">baolong</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本篇旨在整理小程序转mpvue中可能遇到的高级坑</p>
+<ul>
+<li>组件库选择</li>
+<li>mpVue生命周期迁移</li>
+<li>data迁移与使用</li>
+<li>默认事件值获取</li>
+<li>页面栈数据获取</li>
+<li>页面不卸载问题</li>
+<li>module.exports 不可用</li>
+<li>新建页面需要重新执行 npm run dev</li>
+<li>模拟器正常，手机查看页面数据不显示</li>
+</ul>
+<a id="more"></a>
+<h3 id="组件库使用"><a href="#组件库使用" class="headerlink" title="组件库使用"></a>组件库使用</h3><ul>
+<li><p><a href="http://mpvue.com/mpvue/#_13" target="_blank" rel="noopener">mpvue框架</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5aaf222b51882555791873ed" target="_blank" rel="noopener">请求处理 flyio</a></p>
+</li>
+<li><p><a href="https://youngluo.github.io/mp-weui/" target="_blank" rel="noopener">样式库mp-weui</a></p>
+</li>
+</ul>
+<h3 id="生命周期迁移方式"><a href="#生命周期迁移方式" class="headerlink" title="生命周期迁移方式"></a>生命周期迁移方式</h3><h4 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h4><ul>
+<li>created：页面的created函数会在项目加载的时候被一起调用，进入页面的时候不会再被调用，所以这个钩子不能使用，推荐用小程序的原生的<code>onLoad</code>钩子</li>
+<li>mounted：页面返回时<code>mounted</code>钩子不会被触发，页面没有被重新加载，所以不能替代 <code>onShow</code></li>
+</ul>
+<p>综上所述: 还是使用小程序的生命周期，mpvue提供的生命周期不足以支持小程序的需求。</p>
+<h3 id="data迁移与使用"><a href="#data迁移与使用" class="headerlink" title="data迁移与使用"></a>data迁移与使用</h3><p>小程序 <code>js</code> 中的 <code>data{}</code> 属性可全部迁移到 <code>vue</code> 的 <code>data</code> 中，但需要注意的是小程序内数据的引用比 <code>mpvue</code> 多一层 <code>data</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//小程序</span></span><br><span class="line">data: &#123;</span><br><span class="line">  flag: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">引用： <span class="keyword">this</span>.data.flag</span><br></pre></td></tr></table></figure>
+<p>转换为:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mpvue</span></span><br><span class="line">data() &#123;</span><br><span class="line"> <span class="keyword">return</span> &#123;</span><br><span class="line">   flag: <span class="literal">false</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">引用： <span class="keyword">this</span>.flag</span><br></pre></td></tr></table></figure>
+<h3 id="默认事件值获取"><a href="#默认事件值获取" class="headerlink" title="默认事件值获取"></a>默认事件值获取</h3><p>mpvue将小程序默认事件返回值封了一层对象，命名为 <code>mp</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//小程序</span></span><br><span class="line">bindchange=<span class="string">"bindChange"</span></span><br><span class="line"></span><br><span class="line">bindChange: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(e.detail.value )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>转换成:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mpvue</span></span><br><span class="line">@change=<span class="string">"bindChange"</span></span><br><span class="line"></span><br><span class="line">bindChange: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(e.mp.detail.value )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="页面栈数据获取"><a href="#页面栈数据获取" class="headerlink" title="页面栈数据获取"></a>页面栈数据获取</h3><p>mpvue将小程序页面栈数据结构加了两层，命名为 <code>$root</code> 并将<code>data</code>对象封进了数组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//小程序</span></span><br><span class="line"><span class="keyword">this</span>.currentPages[<span class="number">1</span>].data;</span><br></pre></td></tr></table></figure></p>
+<p>转换成:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mpvue</span></span><br><span class="line"><span class="keyword">this</span>.currentPages[<span class="number">1</span>].data.$root[<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<h3 id="页面返回不卸载问题"><a href="#页面返回不卸载问题" class="headerlink" title="页面返回不卸载问题"></a>页面返回不卸载问题</h3><p>小程序中页面返回后该页面就会出栈，下次进入重新触发 onLoad，但是 mpvue 返回后页面没有销毁，数据会缓存，所以进入页面我们需要重置数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onLoad() &#123;</span><br><span class="line">  <span class="comment">// 解决页面返回后，数据留存问题</span></span><br><span class="line">  <span class="built_in">Object</span>.assign(<span class="keyword">this</span>, <span class="keyword">this</span>.$options.data());</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="module-exports-不可用"><a href="#module-exports-不可用" class="headerlink" title="module.exports 不可用"></a>module.exports 不可用</h3><p><code>webpack</code> 可以使用 <code>require</code> 和 <code>export</code> ，但是不能混合使用 <code>import</code> 和 <code>module.exports</code></p>
+<p>解决办法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>转化为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>或者：更新根目录下的<code>.babelrc</code>文件配置</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"presets"</span>: [</span><br><span class="line">        [<span class="string">"env"</span>, &#123;</span><br><span class="line">            <span class="attr">"modules"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"targets"</span>: &#123;</span><br><span class="line">                <span class="attr">"browsers"</span>: [<span class="string">"&gt; 1%"</span>, <span class="string">"last 2 versions"</span>, <span class="string">"not ie &lt;= 8"</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;],</span><br><span class="line">        <span class="string">"stage-2"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"plugins"</span>: [</span><br><span class="line">        [<span class="string">"transform-runtime"</span>, &#123;</span><br><span class="line">            <span class="attr">"polyfill"</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">"regenerator"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;]</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"env"</span>: &#123;</span><br><span class="line">        <span class="attr">"test"</span>: &#123;</span><br><span class="line">            <span class="attr">"presets"</span>: [<span class="string">"env"</span>, <span class="string">"stage-2"</span>],</span><br><span class="line">            <span class="attr">"plugins"</span>: [<span class="string">"istanbul"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="新建页面需要重新执行-npm-run-dev"><a href="#新建页面需要重新执行-npm-run-dev" class="headerlink" title="新建页面需要重新执行 npm run dev"></a>新建页面需要重新执行 npm run dev</h3><p>新建页面需要重新执行 npm run dev 才会生效</p>
+<h3 id="模拟器正常，手机查看页面数据不显示"><a href="#模拟器正常，手机查看页面数据不显示" class="headerlink" title="模拟器正常，手机查看页面数据不显示"></a>模拟器正常，手机查看页面数据不显示</h3><p>导致这种问题的原因可能是其他页面有执行错误，虽然模拟器可以正常使用，但是手机端的js就会停止执行，导致页面数据不渲染。解决其他页面的报错，或暂时删除报错页面的 <code>mian.js</code> 可解决移动端无法查看问题。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/13/linear-grandient 制作斜切角/" rel="next" title="linear-grandient 制作斜切角">
+                <i class="fa fa-chevron-left"></i> linear-grandient 制作斜切角
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/17/移动端app部署流程/" rel="prev" title="移动端 app 部署流程">
+                移动端 app 部署流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件库使用"><span class="nav-number">1.</span> <span class="nav-text">组件库使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期迁移方式"><span class="nav-number">2.</span> <span class="nav-text">生命周期迁移方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意："><span class="nav-number">2.1.</span> <span class="nav-text">注意：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#data迁移与使用"><span class="nav-number">3.</span> <span class="nav-text">data迁移与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#默认事件值获取"><span class="nav-number">4.</span> <span class="nav-text">默认事件值获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面栈数据获取"><span class="nav-number">5.</span> <span class="nav-text">页面栈数据获取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#页面返回不卸载问题"><span class="nav-number">6.</span> <span class="nav-text">页面返回不卸载问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module-exports-不可用"><span class="nav-number">7.</span> <span class="nav-text">module.exports 不可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建页面需要重新执行-npm-run-dev"><span class="nav-number">8.</span> <span class="nav-text">新建页面需要重新执行 npm run dev</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟器正常，手机查看页面数据不显示"><span class="nav-number">9.</span> <span class="nav-text">模拟器正常，手机查看页面数据不显示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

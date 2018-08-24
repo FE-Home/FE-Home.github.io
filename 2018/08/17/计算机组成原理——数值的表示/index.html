@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="IEEE754," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+<meta name="keywords" content="IEEE754">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理——数值的表示">
+<meta property="og:url" content="http://yoursite.com/2018/08/17/计算机组成原理——数值的表示/index.html">
+<meta property="og:site_name" content="国双前端">
+<meta property="og:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-24T07:04:33.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机组成原理——数值的表示">
+<meta name="twitter:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/17/计算机组成原理——数值的表示/"/>
+
+
+
+
+
+  <title>计算机组成原理——数值的表示 | 国双前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">国双前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/计算机组成原理——数值的表示/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机组成原理——数值的表示</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T08:33:27+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机组成原理/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机组成原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数值的表示"><a href="#数值的表示" class="headerlink" title="数值的表示"></a>数值的表示</h1><p>先上代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaSctipt</span></span><br><span class="line"><span class="comment">// 0.30000000000000004</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0.1</span>+<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<p>如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。</p>
+<h1 id="定点数"><a href="#定点数" class="headerlink" title="定点数"></a>定点数</h1><p>以八位机器数举例</p>
+<h2 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>  =&gt; <span class="number">0000</span> <span class="number">1010</span>  </span><br><span class="line"><span class="number">-10</span> =&gt; <span class="number">1000</span> <span class="number">1010</span></span><br></pre></td></tr></table></figure>
+<p>原码就是把数值直接用二进制表示出来，正负号用末位0，1来表示。<br>原码有诸多弊端，比如：数值的减法不能用加法来计算。在十进制中10-10和10+(-10)是等效的，但是在原码表示法的机器数运算中，10+(-10)却得到了1001 0100的结果，显然不等于0 。在计算机内部，处理运算是用与或非门来控制的，加减法分别用两套电路有些浪费资源，我们能否用加法电路来实现减法呢？<br>其次，0和-0在原码中竟然是不同的表示法，但是这对运算并没有帮助，反而浪费了一个表示位置。</p>
+<h2 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>  =&gt; <span class="number">0000</span> <span class="number">1010</span>  </span><br><span class="line"><span class="number">-10</span> =&gt; <span class="number">1111</span> <span class="number">0110</span></span><br></pre></td></tr></table></figure>
+<p>补码的正数和原码一样，但是负数采用原码的“取反加一”，也就是说，想要得到-10，首先把符号位确定为1，然后写出10的原码表示，将其各个位置取反加一，即得到了该原码的补码。补码的求相反数同理。</p>
+<p>此时10+(-10)和10-10的操作统一了，同时也没有了+0和-0的区别。计算机内部运算一般采用补码来进行，感兴趣的可以了解一下定点数/浮点数的乘法/除法，仅用移位和加法运算即可完成。  </p>
+<p>补码的移位要注意一点，算术右移的时候正数补0负数补1 。</p>
+<p>移码、反码此处不涉及，了解即可。</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>为了扩大数的表示范围，可以采用“科学计数法”来表示大数或者小数。比如-2000 0000就可以表示成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1 * 2 * 10 ^ 7</span><br></pre></td></tr></table></figure></p>
+<p>如果我们提前约定好了底数10，那么我们表示这个数只需要三个信息，负号、2、7 ，转换成2进制就是1 10 0111比我们单独存储-20000000要节省很多空间</p>
+<p>由于2进制的限制，计算机内部这个约定好的底数是2。</p>
+<h2 id="IEEE754"><a href="#IEEE754" class="headerlink" title="IEEE754"></a>IEEE754</h2><p>目前计算机内部表示浮点数的一个标准就是IEEE754，以32位计算机举例，表示1100 0111为1  1000 0101  10001110000000000000000<br>乍一看可能觉得这种表示法更复杂了，其实无论在精度还是在表示数的范围，IEEE754都是很优秀的。<br>在IEEE754中，底数为2，用1位表示符号，8位表示阶码，也就是上文中的1000 0101，为了表示2的负数次方，阶码采用移码，都加上127，这样负数的阶码也可以表示出来了，23位原码表示尾数。<br>关于尾数这里要注意一点，由于2进制的有效数字第一位一定是1，所以尾数的前面省略了一个1不写，用23位的尾数表示了24位的值，在手动转换的时候要自己补上。</p>
+<p>说了这么多还是没有直接解答浮点数的精度问题，但是看过了以上之后，你会更容易理解。<br>首先计算机没有办法精确地表示0.1和0.2等等，因为通过2次幂来控制移位，计算机只能精确表示出0.5、0.25、0.125、0.0625等等，这些数是无论如何也不能表示出0.1这样的数的，只能随着尾数长度的增加而无限接近。而在计算机存储这样的数的时候就会用到舍入策略：</p>
+<h1 id="舍入策略"><a href="#舍入策略" class="headerlink" title="舍入策略"></a>舍入策略</h1><p>IEEE列出了四种不同的舍入方法：</p>
+<blockquote>
+<ul>
+<li>舍入到最接近：舍入到最接近，在一样接近的情况下偶数优先（Ties To Even，这是默认的舍入方式）：会将结果舍入为最接近且可以表示的值，但是当存在两个数一样接近的时候，则取其中的偶数（在二进制中式以0结尾的）。</li>
+<li>朝+∞方向舍入：会将结果朝正无限大的方向舍入。</li>
+<li>朝-∞方向舍入：会将结果朝负无限大的方向舍入。</li>
+<li>朝0方向舍入：会将结果朝0的方向舍入。</li>
+</ul>
+</blockquote>
+<p>举个栗子<br>假如我们都采用朝+∞方向舍入，保留一位小数，那么0.41会入到0.5，0.41+0.41在计算机中就会计算成1.（仅仅是假设，实际计算机精度大得多）<br>而在我们let a = 0.3的时候会把0.3转换成2进制存储进来，再进行读取的时候，由于它和0.3的差比机器内部最大舍入误差小，所以再进行输出的时候就会正常输出0.3，在进行0.1+0.2的时候由于这种舍入误差的累积，导致了输出结果不等于0.3 。</p>
+<h1 id="不同语言的输出"><a href="#不同语言的输出" class="headerlink" title="不同语言的输出"></a>不同语言的输出</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%f"</span>,<span class="number">0.1</span>+<span class="number">0.2</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 0.300000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="number">0.1</span>+<span class="number">0.2</span>);</span><br><span class="line">    <span class="comment">// 0.30000000000000004</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python</span></span><br><span class="line"><span class="keyword">print</span> <span class="number">0.1</span>+<span class="number">0.2</span></span><br><span class="line"><span class="comment"># 0.3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// php</span></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">  <span class="keyword">echo</span> <span class="number">0.1</span>+<span class="number">0.2</span></span><br><span class="line">  <span class="comment">// 0.3</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ruby</span></span><br><span class="line">puts <span class="number">0</span>.<span class="number">1</span>+<span class="number">0</span>.<span class="number">2</span></span><br><span class="line"><span class="comment"># 0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<p>不同语言由于在输出长度方面有区别，所以最后的4可能会被截断。</p>
+<h1 id="浮点数比较"><a href="#浮点数比较" class="headerlink" title="浮点数比较"></a>浮点数比较</h1><p>在日常使用中一般不建议浮点数进行比较，一种比较的方法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">abs</span>(a - b) ＜ <span class="number">1e-8</span></span><br><span class="line"><span class="comment">// 自行设置精度</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://zh.wikipedia.org/zh-hans/IEEE_754" target="_blank" rel="noopener">IEEE 754_wikipedia</a><br><a href="https://www.amazon.cn/dp/B01N03IQK4/ref=sr_1_1?ie=UTF8&amp;qid=1534470551&amp;sr=8-1&amp;keywords=%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">深入理解计算机系统(原书第3版)</a><br><a href="https://www.amazon.cn/dp/B00HTIEY94/ref=sr_1_4?ie=UTF8&amp;qid=1534470571&amp;sr=8-4&amp;keywords=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86" target="_blank" rel="noopener">计算机组成原理-唐朔飞</a><br><a href="https://zhuanlan.zhihu.com/p/33494597" target="_blank" rel="noopener">js中浮点数的表示及计算–IEEE 754</a><br><a href="https://www.imooc.com/article/23518" target="_blank" rel="noopener">原码补码反码移位</a>  </p>
+<p><small>朱耀华_20180817</small></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IEEE754/" rel="tag"># IEEE754</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/17/小程序转Mpvue入门篇/" rel="next" title="小程序转Mpvue入门篇">
+                <i class="fa fa-chevron-left"></i> 小程序转Mpvue入门篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/18/mapVue/" rel="prev" title="如何在地图的自定义弹窗使用Vue">
+                如何在地图的自定义弹窗使用Vue <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数值的表示"><span class="nav-number">1.</span> <span class="nav-text">数值的表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定点数"><span class="nav-number">2.</span> <span class="nav-text">定点数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原码"><span class="nav-number">2.1.</span> <span class="nav-text">原码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补码"><span class="nav-number">2.2.</span> <span class="nav-text">补码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浮点数"><span class="nav-number">3.</span> <span class="nav-text">浮点数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IEEE754"><span class="nav-number">3.1.</span> <span class="nav-text">IEEE754</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#舍入策略"><span class="nav-number">4.</span> <span class="nav-text">舍入策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同语言的输出"><span class="nav-number">5.</span> <span class="nav-text">不同语言的输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浮点数比较"><span class="nav-number">6.</span> <span class="nav-text">浮点数比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/04/hexo多人博客使用指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/hexo多人博客使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tianyu">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/04/hexo多人博客使用指南/" itemprop="url">hexo 多人博客使用指南</a></h1>
+                <a class="post-title-link" href="/2018/08/18/hexo多人博客使用指南/" itemprop="url">js原型该如何深入理解</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,616 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-04T00:00:00+08:00">
-                2018-04-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T00:00:00+08:00">
+                2018-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下</p>
+<ol>
+<li>js原型</li>
+<li>js原型练习题</li>
+<li>原型总结</li>
+<li>原型链继承总结</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/18/hexo多人博客使用指南/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/mapVue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/18/mapVue/" itemprop="url">如何在地图的自定义弹窗使用Vue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-18T00:00:00+08:00">
+                2018-08-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/zzd/" itemprop="url" rel="index">
+                    <span itemprop="name">zzd</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近接触一个以地图为基础的项目，满心欢喜。<br><img src="http://www.happyzzd.top/static/upload/20180815/upload_e3ebe5214ed3f2f99161aa4baab8804c.png" alt="alt"></p>
+<p>但是发现被套路了。</p>
+<p>因为项目是vue 项目所以需要对 <a href="http://www.tianditu.gov.cn/" target="_blank" rel="noopener">天地图</a>进行一次封装，（我也第一次听说天地图地图） 好了废话不多说。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>由于地图自定弹窗只支持 string，没有办法使用vue 如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var sContent =</span><br><span class="line">            &quot;&lt;div style=&apos;margin:0px;&apos;&gt;&quot; +</span><br><span class="line">            &quot;&lt;div style=&apos;margin:10px 10px; &apos;&gt;&quot; +</span><br><span class="line">            &quot;&lt;img style=&apos;float:left;margin:0px 10px&apos; src=&apos;http://lbs.tianditu.gov.cn/images/logo.png&apos; width=&apos;101&apos; height=&apos;49&apos; title=&apos;天安门&apos;/&gt;&quot; +</span><br><span class="line">            &quot;&lt;div style=&apos;margin:10px 0px 10px 120px;&apos;&gt;电话 : (010)88187700 &lt;br&gt;地址：北京市顺义区机场东路国门商务区地理信息产业园2号楼天地图大厦&quot; +</span><br><span class="line">            &quot;&lt;/div&gt;&quot; +</span><br><span class="line">            &quot;&lt;input  id=&apos;keyWord&apos; value=&apos;机场&apos; type=&apos;text&apos; style=&apos;border: 1px solid #cccccc;width: 180px;height: 20px;line-height: 20px;padding-left: 10px;display: block;float: left;&apos;&gt;&quot; +</span><br><span class="line">            &quot;&lt;input style=&apos;margin-left:195px;  width: 80px;height: 24px; text-align: center; background: #5596de;color: #FFF;border: none;display: block;cursor: pointer;&apos; type=&apos;button&apos; value=&apos;周边搜索&apos;  onClick=\&quot;localsearch.searchNearby(document.getElementById(&apos;keyWord&apos;).value,center,radius)\&quot;&gt;&quot; +</span><br><span class="line">            &quot;&lt;/div&gt;&quot; +</span><br><span class="line">            &quot;&lt;/div&gt;&quot;;</span><br></pre></td></tr></table></figure>
+<p>在我看来十分不优雅，与vue 感觉完全不配</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用Vue 的  compile方法 结合 ES6的模板字符串</p>
+<h4 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h4><p>参数：<br>   <code>{string} template</code></p>
+<p>Vue.compile 返回了{render:Function,staticRenderFns:Array}，render 可直接应用于 Vue 的配置项 render。而render和staticRenderFns到底是是什么？（我们下回再说。）</p>
+<p>用法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">在 render 函数中编译模板字符串。只在独立构建时有效</span><br><span class="line"></span><br><span class="line">var res = Vue.compile(&apos;&lt;div&gt;&lt;span&gt;&#123;&#123; msg &#125;&#125;&lt;/span&gt;&lt;/div&gt;&apos;)</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    msg: &apos;hello&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  render: res.render,  /</span><br><span class="line">  staticRenderFns: res.staticRenderFns</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">let html = Vue.compile(`</span><br><span class="line">      &lt;div style=&quot;position: relative; width:200px; text-align:center;&quot;&gt;</span><br><span class="line">      &lt;gs-button type=&quot;text&quot; @click=&quot;closeWindow&quot; style=&quot;float: right;&quot;&gt;x&lt;/gs-button&gt;</span><br><span class="line">      &lt;div&gt;姓名：&#123;&#123;person.XM&#125;&#125;&lt;/div&gt;</span><br><span class="line">      &lt;div&gt;&lt;img style=&quot;width:100px&quot; :src=&quot;imgUrl&quot;/&gt;&lt;/div&gt;</span><br><span class="line">      &lt;div&gt;出现时间:&lt;/div&gt;</span><br><span class="line">       &lt;div v-for=&quot;(item1,index) in person.Location&quot; :key=&quot;index&quot;&gt;&#123;&#123;item1.OccDateTime&#125;&#125;&lt;/div&gt;</span><br><span class="line">      &lt;gs-button type=&quot;text-primary&quot; @click=&quot;openline()&quot;&gt;查看路线&lt;/gs-button&gt;</span><br><span class="line">      &lt;gs-button type=&quot;text&quot; @click=&quot;closeline()&quot;&gt;取消查看&lt;/gs-button&gt;</span><br><span class="line">      &lt;/div&gt;`);</span><br><span class="line"> let vNode = new Vue(&#123;</span><br><span class="line">        data: &#123;</span><br><span class="line">          person: item,</span><br><span class="line">          imgUrl: bioassay</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">          closeWindow() &#123;</span><br><span class="line">            me.map.removeOverLay(me.customerWinInfo);</span><br><span class="line">          &#125;,</span><br><span class="line">          openline() &#123;</span><br><span class="line">            me.createLine(item);</span><br><span class="line">          &#125;,</span><br><span class="line">          closeline() &#123;</span><br><span class="line">            me.map.removeOverLay(me.line);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        render: html.render</span><br><span class="line">      &#125;);</span><br><span class="line">      let dom = document.createElement(&quot;div&quot;);</span><br><span class="line">      let el = vNode.$mount(dom).$el; //  挂接到div中</span><br><span class="line"></span><br><span class="line">      let config = &#123;</span><br><span class="line">        offset: new TPixel(0, 0),</span><br><span class="line">        position: item.marker.getLngLat()</span><br><span class="line">      &#125;;</span><br><span class="line">      this.customerWinInfo = new TLabel(config);</span><br><span class="line"></span><br><span class="line">      this.customerWinInfo.setTitle(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">      this.customerWinInfo.setLabel(el);</span><br><span class="line"></span><br><span class="line">      this.customerWinInfo.getObject().style.zIndex = 10000;</span><br><span class="line"></span><br><span class="line">      this.map.addOverLay(this.customerWinInfo);</span><br><span class="line">      let obj = this.customerWinInfo.getObject();</span><br><span class="line">      let width = parseInt(obj.offsetWidth);</span><br><span class="line">      let height = parseInt(obj.offsetHeight);</span><br><span class="line"></span><br><span class="line">      let pixel = new TPixel(width / -2, height / -2 - 40);</span><br><span class="line"></span><br><span class="line">      this.customerWinInfo.setOffset(pixel);</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>优雅了好多。开心~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/计算机组成原理——数值的表示/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/17/计算机组成原理——数值的表示/" itemprop="url">计算机组成原理——数值的表示</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T08:33:27+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机组成原理/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机组成原理</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="数值的表示"><a href="#数值的表示" class="headerlink" title="数值的表示"></a>数值的表示</h1><p>先上代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaSctipt</span></span><br><span class="line"><span class="comment">// 0.30000000000000004</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0.1</span>+<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<p>如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。</p>
+<h1 id="定点数"><a href="#定点数" class="headerlink" title="定点数"></a>定点数</h1><p>以八位机器数举例</p>
+<h2 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>  =&gt; <span class="number">0000</span> <span class="number">1010</span>  </span><br><span class="line"><span class="number">-10</span> =&gt; <span class="number">1000</span> <span class="number">1010</span></span><br></pre></td></tr></table></figure>
+<p>原码就是把数值直接用二进制表示出来，正负号用末位0，1来表示。<br>原码有诸多弊端，比如：数值的减法不能用加法来计算。在十进制中10-10和10+(-10)是等效的，但是在原码表示法的机器数运算中，10+(-10)却得到了1001 0100的结果，显然不等于0 。在计算机内部，处理运算是用与或非门来控制的，加减法分别用两套电路有些浪费资源，我们能否用加法电路来实现减法呢？<br>其次，0和-0在原码中竟然是不同的表示法，但是这对运算并没有帮助，反而浪费了一个表示位置。</p>
+<h2 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>  =&gt; <span class="number">0000</span> <span class="number">1010</span>  </span><br><span class="line"><span class="number">-10</span> =&gt; <span class="number">1111</span> <span class="number">0110</span></span><br></pre></td></tr></table></figure>
+<p>补码的正数和原码一样，但是负数采用原码的“取反加一”，也就是说，想要得到-10，首先把符号位确定为1，然后写出10的原码表示，将其各个位置取反加一，即得到了该原码的补码。补码的求相反数同理。</p>
+<p>此时10+(-10)和10-10的操作统一了，同时也没有了+0和-0的区别。计算机内部运算一般采用补码来进行，感兴趣的可以了解一下定点数/浮点数的乘法/除法，仅用移位和加法运算即可完成。  </p>
+<p>补码的移位要注意一点，算术右移的时候正数补0负数补1 。</p>
+<p>移码、反码此处不涉及，了解即可。</p>
+<h1 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h1><p>为了扩大数的表示范围，可以采用“科学计数法”来表示大数或者小数。比如-2000 0000就可以表示成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1 * 2 * 10 ^ 7</span><br></pre></td></tr></table></figure></p>
+<p>如果我们提前约定好了底数10，那么我们表示这个数只需要三个信息，负号、2、7 ，转换成2进制就是1 10 0111比我们单独存储-20000000要节省很多空间</p>
+<p>由于2进制的限制，计算机内部这个约定好的底数是2。</p>
+<h2 id="IEEE754"><a href="#IEEE754" class="headerlink" title="IEEE754"></a>IEEE754</h2><p>目前计算机内部表示浮点数的一个标准就是IEEE754，以32位计算机举例，表示1100 0111为1  1000 0101  10001110000000000000000<br>乍一看可能觉得这种表示法更复杂了，其实无论在精度还是在表示数的范围，IEEE754都是很优秀的。<br>在IEEE754中，底数为2，用1位表示符号，8位表示阶码，也就是上文中的1000 0101，为了表示2的负数次方，阶码采用移码，都加上127，这样负数的阶码也可以表示出来了，23位原码表示尾数。<br>关于尾数这里要注意一点，由于2进制的有效数字第一位一定是1，所以尾数的前面省略了一个1不写，用23位的尾数表示了24位的值，在手动转换的时候要自己补上。</p>
+<p>说了这么多还是没有直接解答浮点数的精度问题，但是看过了以上之后，你会更容易理解。<br>首先计算机没有办法精确地表示0.1和0.2等等，因为通过2次幂来控制移位，计算机只能精确表示出0.5、0.25、0.125、0.0625等等，这些数是无论如何也不能表示出0.1这样的数的，只能随着尾数长度的增加而无限接近。而在计算机存储这样的数的时候就会用到舍入策略：</p>
+<h1 id="舍入策略"><a href="#舍入策略" class="headerlink" title="舍入策略"></a>舍入策略</h1><p>IEEE列出了四种不同的舍入方法：</p>
+<blockquote>
+<ul>
+<li>舍入到最接近：舍入到最接近，在一样接近的情况下偶数优先（Ties To Even，这是默认的舍入方式）：会将结果舍入为最接近且可以表示的值，但是当存在两个数一样接近的时候，则取其中的偶数（在二进制中式以0结尾的）。</li>
+<li>朝+∞方向舍入：会将结果朝正无限大的方向舍入。</li>
+<li>朝-∞方向舍入：会将结果朝负无限大的方向舍入。</li>
+<li>朝0方向舍入：会将结果朝0的方向舍入。</li>
+</ul>
+</blockquote>
+<p>举个栗子<br>假如我们都采用朝+∞方向舍入，保留一位小数，那么0.41会入到0.5，0.41+0.41在计算机中就会计算成1.（仅仅是假设，实际计算机精度大得多）<br>而在我们let a = 0.3的时候会把0.3转换成2进制存储进来，再进行读取的时候，由于它和0.3的差比机器内部最大舍入误差小，所以再进行输出的时候就会正常输出0.3，在进行0.1+0.2的时候由于这种舍入误差的累积，导致了输出结果不等于0.3 。</p>
+<h1 id="不同语言的输出"><a href="#不同语言的输出" class="headerlink" title="不同语言的输出"></a>不同语言的输出</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%f"</span>,<span class="number">0.1</span>+<span class="number">0.2</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  <span class="comment">// 0.300000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="number">0.1</span>+<span class="number">0.2</span>);</span><br><span class="line">    <span class="comment">// 0.30000000000000004</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python</span></span><br><span class="line"><span class="keyword">print</span> <span class="number">0.1</span>+<span class="number">0.2</span></span><br><span class="line"><span class="comment"># 0.3</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// php</span></span><br><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">  <span class="keyword">echo</span> <span class="number">0.1</span>+<span class="number">0.2</span></span><br><span class="line">  <span class="comment">// 0.3</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ruby</span></span><br><span class="line">puts <span class="number">0</span>.<span class="number">1</span>+<span class="number">0</span>.<span class="number">2</span></span><br><span class="line"><span class="comment"># 0.30000000000000004</span></span><br></pre></td></tr></table></figure>
+<p>不同语言由于在输出长度方面有区别，所以最后的4可能会被截断。</p>
+<h1 id="浮点数比较"><a href="#浮点数比较" class="headerlink" title="浮点数比较"></a>浮点数比较</h1><p>在日常使用中一般不建议浮点数进行比较，一种比较的方法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">abs</span>(a - b) ＜ <span class="number">1e-8</span></span><br><span class="line"><span class="comment">// 自行设置精度</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://zh.wikipedia.org/zh-hans/IEEE_754" target="_blank" rel="noopener">IEEE 754_wikipedia</a><br><a href="https://www.amazon.cn/dp/B01N03IQK4/ref=sr_1_1?ie=UTF8&amp;qid=1534470551&amp;sr=8-1&amp;keywords=%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">深入理解计算机系统(原书第3版)</a><br><a href="https://www.amazon.cn/dp/B00HTIEY94/ref=sr_1_4?ie=UTF8&amp;qid=1534470571&amp;sr=8-4&amp;keywords=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86" target="_blank" rel="noopener">计算机组成原理-唐朔飞</a><br><a href="https://zhuanlan.zhihu.com/p/33494597" target="_blank" rel="noopener">js中浮点数的表示及计算–IEEE 754</a><br><a href="https://www.imooc.com/article/23518" target="_blank" rel="noopener">原码补码反码移位</a>  </p>
+<p><small>朱耀华_20180817</small></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/小程序转Mpvue入门篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/17/小程序转Mpvue入门篇/" itemprop="url">小程序转Mpvue入门篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baolong/" itemprop="url" rel="index">
+                    <span itemprop="name">baolong</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本篇旨在整理小程序转mpVue遇到的一些基础事项</p>
+<p>改造前：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"weui-cell__ft &#123;&#123;class&#125;&#125;"</span> <span class="attr">placeholder</span>=<span class="string">'--'</span> <span class="attr">value</span>=<span class="string">'&#123;&#123;item.userName&#125;&#125;'</span> <span class="attr">bindtap</span>=<span class="string">"gotoEdits"</span> <span class="attr">data-item</span>=<span class="string">"&#123;&#123;item&#125;&#125;"</span> <span class="attr">data-isAgent</span>=<span class="string">"false"</span> <span class="attr">disabled</span>=<span class="string">"&#123;&#123;disabledInput&#125;&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>改造后：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">class</span>=<span class="string">"weui-cell__ft"</span> <span class="attr">:class</span>=<span class="string">"class"</span> <span class="attr">placeholder</span>=<span class="string">'--'</span> <span class="attr">:model.lazy</span>=<span class="string">'item.userName'</span> @<span class="attr">click</span>=<span class="string">"gotoEdits(item, false)"</span> <span class="attr">:disabled</span>=<span class="string">"disabledInput"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/17/小程序转Mpvue入门篇/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/移动端app部署流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/17/移动端app部署流程/" itemprop="url">移动端 app 部署流程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
               </time>
             
 
@@ -321,22 +929,537 @@
 
       
         
-          <p>本篇指南意在指导本团队开发者使用由hexo搭建的多人博客</p>
-<p>面向阅读对象：专业开发者</p>
-<ol>
-<li><a href="#github_ssh">github与ssh</a></li>
-<li><a href="#base">基本环境搭建</a></li>
-<li><a href="#write">如何写博客</a></li>
-<li><a href="#upload">如何上传文章或博客系统修改</a></li>
-<li><a href="#modifiy">对博客系统进行修改(未完待续)</a></li>
-</ol>
+          
+            <h2 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h2><h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><ul>
+<li>进入 android 文件夹，并打包命令：cd android &amp;&amp; ./gradlew assembleRelease(gradlew 是 android 的工程化工具, <a href="https://blog.csdn.net/zhihui_520/article/details/53783347" target="_blank" rel="noopener">常用的命令</a>)</li>
+<li>打包后的 apk 文件在\android\app\build\outputs\apk\文件夹下</li>
+<li>android 打包后的 apk 可以直接安装到手机上，比较简单</li>
+</ul>
+<h3 id="IOS（必须用-mac）"><a href="#IOS（必须用-mac）" class="headerlink" title="IOS（必须用 mac）"></a>IOS（必须用 mac）</h3><ul>
+<li>首先需要有个开发者账号，开发者账号分三种（个人、公司、企业），公司内部现有两个账号：戴飞的企业版账号、勇坚的公司版账号</li>
+<li>企业版账号： 不用发布到 appStore，属于为特定人群定制的 app，不需要在市场中推广，发布周期比较短，比较适合企业内部 app、b2b 业务等</li>
+<li>公司版账号： 需要发布到 appStore，需要经过一周甚至更长时间的审核，周期比较长，比较适合需要在市场中推广，带有公司的品牌特征的 app</li>
+</ul>
+<h6 id="本-app-选择了企业版账号，以下基于这个基础展开："><a href="#本-app-选择了企业版账号，以下基于这个基础展开：" class="headerlink" title="本 app 选择了企业版账号，以下基于这个基础展开："></a>本 app 选择了企业版账号，以下基于这个基础展开：</h6><ul>
+<li>用开发者账号登陆<a href="https://developer.apple.com/account/" target="_blank" rel="noopener">开发者管理员后台</a></li>
+<li>进入 Certificates, IDs &amp; Profiles，注册这三样东西，这是部署一个 ipa 包必备的三要素， <a href="https://www.cnblogs.com/A--G/p/4627590.html" target="_blank" rel="noopener">这里面详细解说了这三要素的原理/生成步骤</a>，比较长，耐心点看，很有帮助</li>
+<li>证书：如果你认真看完了上面的内容后，你会发现戴飞的账号中发布证书已经被注册满了，也就是说你不能有自己的发布证书了，那么就要找发布证书的相关负责人（戴飞和我都注册过）去拿发布证书导出的.p12 文件，并且装到自己的 mac 本上；</li>
+<li>appID 和 profile: 没什么可说的，都比较容易创建</li>
+<li><strong>以上三要素都分为开发和发布两种，权限不一样，酌情选择</strong></li>
+</ul>
+<ul>
+<li>接下来就是通过 XCode 将上面的三要素配置到自己的项目中，主要是配置 display name、bundle identifier、signing，<a href="https://www.jianshu.com/p/c8e86f62687a" target="_blank" rel="noopener">具体的配置方式</a>中的 xCode 配置章节</li>
+<li>配置完成之后就可以打档案文件了 点击 Product 菜单中的 Archive 选项（当然在打包前应该先 build 一下看看是否有错误，这个应该不用多说），<strong>要注意的是 destination 必须选择真机设备或者 Generic ios Deveice，否则 Archive 选项是灰色不能点击的</strong></li>
+<li>如果以上步骤顺利的话，这时候打出来的包是 Archive 文件，还不是我们安装到手机上的 ipa 文件，要通过 Archive 文件生成 ipa 以及一些配置文件</li>
+<li>进入 Window 菜单中的 Organizer，就会看到刚才生成的 Archives，页面的右侧点击 export，接下来依次操作选择 enterprise（开发版选择 development） -&gt; 勾选上 include manifest for over-the-air installation（可以通过 safari 来下载 app）<br>-&gt; 配置 app 和图片的存放地址 -&gt; 选择 automatically manage signing 然后就开始打包了</li>
+<li>接下来打出来的包如何通过 safari 来安装？主要是通过 itms-services 协议，<a href="https://www.cnblogs.com/xiaoc1314/p/5952555.html" target="_blank" rel="noopener">步骤</a></li>
+</ul>
+<ul>
+<li>最后，如果你已经看懂了，并且整体部署一遍，你会发现，<a href="https://www.jianshu.com/p/e7b302486186" target="_blank" rel="noopener">过程其实就这些</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/小程序转Mpvue精华篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/17/小程序转Mpvue精华篇/" itemprop="url">小程序转Mpvue精华篇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:00:00+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baolong/" itemprop="url" rel="index">
+                    <span itemprop="name">baolong</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>本篇旨在整理小程序转mpvue中可能遇到的高级坑</p>
+<ul>
+<li>组件库选择</li>
+<li>mpVue生命周期迁移</li>
+<li>data迁移与使用</li>
+<li>默认事件值获取</li>
+<li>页面栈数据获取</li>
+<li>页面不卸载问题</li>
+<li>module.exports 不可用</li>
+<li>新建页面需要重新执行 npm run dev</li>
+<li>模拟器正常，手机查看页面数据不显示</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/04/hexo多人博客使用指南/#more" rel="contents">
+            <a class="btn" href="/2018/08/17/小程序转Mpvue精华篇/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/13/linear-grandient 制作斜切角/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/13/linear-grandient 制作斜切角/" itemprop="url">linear-grandient 制作斜切角</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-13T00:00:00+08:00">
+                2018-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="linear-grandient-制作斜切角"><a href="#linear-grandient-制作斜切角" class="headerlink" title="linear-grandient 制作斜切角"></a>linear-grandient 制作斜切角</h4><ul>
+<li><p>效果图<br><img src="/2018/08/13/linear-grandient 制作斜切角/1.jpg" alt="1.jpg"></p>
+</li>
+<li><p>代码</p>
+  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">padding</span>: 14<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">width</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 100<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-id">#DDD</span>;</span><br><span class="line"><span class="selector-tag">border-radius</span>: 4<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">-45deg</span>, <span class="selector-tag">transparent</span> 25<span class="selector-tag">px</span>, <span class="selector-id">#DDD</span> 0)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>说明</p>
+<ul>
+<li>linear-grandient 各参数分别是 angle，[color length]</li>
+<li>angle 为角度</li>
+<li>[color length] 为颜色和长度结对出现，多组以逗号分隔</li>
+</ul>
+</li>
+<li><p>angle 角度说明</p>
+<p>  <img src="/2018/08/13/linear-grandient 制作斜切角/2.jpg" alt="2.jpg"></p>
+<ul>
+<li><p>C 为容器中心点，A则是通过C的垂直线与渐变线顺时针旋转产生的脚，渐近线左下点为起始点，右上点为结束点</p>
+</li>
+<li><p>如上例中，角度为 -45deg时，渐近线逆时针旋转45度，渐进方向则为右下到左上</p>
+</li>
+</ul>
+</li>
+<li><p>进阶</p>
+<ul>
+<li><p>使用 linear-grndient 还可以实现以下效果</p>
+<p><img src="/2018/08/13/linear-grandient 制作斜切角/3.jpg" alt="3.jpg"></p>
+</li>
+<li><p>代码</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-radius</span>: 6<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-id">#CB34DC</span>;</span><br><span class="line"><span class="selector-tag">width</span>: 120<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 40<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">-45deg</span>, <span class="selector-tag">transparent</span> 15<span class="selector-tag">px</span>, <span class="selector-id">#CB34DC</span> 0) <span class="selector-tag">bottom</span> <span class="selector-tag">right</span>, <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">-135deg</span>, <span class="selector-tag">transparent</span> 15<span class="selector-tag">px</span>, <span class="selector-id">#CB34DC</span> 0) <span class="selector-tag">top</span> <span class="selector-tag">right</span>;</span><br><span class="line"><span class="selector-tag">background-size</span>: 100% 50%;</span><br><span class="line"><span class="selector-tag">background-repeat</span>: <span class="selector-tag">no-repeat</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/JSON使用技巧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="国双前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/05/JSON使用技巧/" itemprop="url">JSON使用技巧</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-05T00:00:00+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>JSON序列化</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span>,</span><br><span class="line">    age: <span class="number">14</span>,</span><br><span class="line">    gender: <span class="literal">true</span>,</span><br><span class="line">    height: <span class="number">1.65</span>,</span><br><span class="line">    grade: <span class="literal">null</span>,</span><br><span class="line">    <span class="string">'middle-school'</span>: <span class="string">'\"W3C\" Middle School'</span>,</span><br><span class="line">    skills: [<span class="string">'JavaScript'</span>, <span class="string">'Java'</span>, <span class="string">'Python'</span>, <span class="string">'Lisp'</span>]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(xiaoming);</span><br><span class="line"><span class="comment">//'&#123;"name":"明","age":14,"gender":true,"height":1.65,"grade":null,"middle-school":"\"W3C\" Middle School","skills":["JavaScript","Java","Python","Lisp"]&#125;'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对序列化后的字符串进行优化，缩进处理</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(xiaoming, <span class="literal">null</span>, <span class="string">' '</span>);</span><br></pre></td></tr></table></figure>
+<p> 输出结果</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"&#123;</span></span><br><span class="line">    "name": "小明",</span><br><span class="line">    "age": 14,</span><br><span class="line">    "gender": true,</span><br><span class="line">    "height": 1.65,</span><br><span class="line">    "grade": null,</span><br><span class="line">    "middle-school": "\"W3C\" Middle School",</span><br><span class="line">    "skills": [ "JavaScript", "Java", "Python", "Lisp" ]</span><br><span class="line">&#125;"</span><br></pre></td></tr></table></figure>
+<p> 第二个参数用于控制筛选对象的键值</p>
+</li>
+<li><p>输出指定键值，可输入数组</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JSON.stringify(xiaoming, ['name', 'age'], ' ');</span><br></pre></td></tr></table></figure>
+<p> 输出结果</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"&#123;</span></span><br><span class="line">    "name": "小明",</span><br><span class="line">    "age": 14</span><br><span class="line">&#125;"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还可以输入函数，进行处理</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function convert(key, value) &#123;</span><br><span class="line">    if (typeof value === 'string') &#123;</span><br><span class="line">    	return value.toUpperCase();</span><br><span class="line">    &#125;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br><span class="line">JSON.stringify(xiaoming, convert, ' ');</span><br></pre></td></tr></table></figure>
+<p> 输出结果</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"&#123;</span></span><br><span class="line">    "name": "小明",</span><br><span class="line">    "age": 14,</span><br><span class="line">    "gender": true,</span><br><span class="line">    "height": 1.65,</span><br><span class="line">    "grade": null,</span><br><span class="line">    "middle-school": "\"W3C\" MIDDLE SCHOOL",</span><br><span class="line">    "skills": [</span><br><span class="line">        "JAVASCRIPT",</span><br><span class="line">        "JAVA",</span><br><span class="line">        "PYTHON",</span><br><span class="line">        <span class="string">"LISP"</span></span><br><span class="line">	]</span><br><span class="line">&#125;"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还可以给<code>xiaoming</code>添加一个<code>toJSON</code>，直接序列化数据</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var xiaoming = &#123;</span><br><span class="line">    name: '小明',</span><br><span class="line">    age: 14,</span><br><span class="line">    gender: true,</span><br><span class="line">    height: 1.65,</span><br><span class="line">    grade: null,</span><br><span class="line">    'middle-school': '\"W3C\" Middle School',</span><br><span class="line">    skills: ['JavaScript', 'Java', 'Python', 'Lisp'],</span><br><span class="line">    toJSON: function () &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            'NAME': this.name,</span><br><span class="line">            'AGE': this.age * 2</span><br><span class="line">        &#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">JSON.stringify(xiaoming); // '&#123;"NAME":"小明","AGE":28&#125;'</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JSON反序列化，使用<code>JSON.parse()</code>把内容变成一个JavaScript对象</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JSON.parse('[1,2,3,true]'); // [1, 2, 3, true]</span><br><span class="line">JSON.parse('&#123;"name":"小明","age":14&#125;'); // Object &#123;name: '小明', age: 14&#125;</span><br><span class="line">JSON.parse('true'); // true</span><br><span class="line">JSON.parse('123.45'); // 123.45</span><br><span class="line">JSON.parse('"aa"');//"aa"</span><br><span class="line">JSON.parse('aa');//SyntaxError</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还可以接受函数，对键值进行处理</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">JSON.parse('&#123;"name":"小明","age":14&#125;', function (key, value) &#123;</span><br><span class="line">    if (key === 'name') &#123;</span><br><span class="line">    	return value + '同学';</span><br><span class="line">    &#125;</span><br><span class="line">    return value;</span><br><span class="line">&#125;); // Object &#123;name: '小明同学', age: 14&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
         
       
     </div>
@@ -571,7 +1694,7 @@ CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -582,12 +1705,21 @@ CMD缺点：执行等待时间会叠加。因为每个文件执行时是同步�
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
             
 
           </nav>
