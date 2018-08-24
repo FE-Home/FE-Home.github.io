@@ -81,3 +81,9 @@ deploy:
   type: git
   repo: git@github.com:FE-Home/FE-Home.github.io.git
   branch: master
+
+menu:
+  home: / 
+  tags: /tags
+  categories: /categories
+  archives: /archives
