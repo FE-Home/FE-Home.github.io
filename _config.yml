@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 国双前端
+title: tech-pub前端
 subtitle:
 description:
 keywords:
@@ -81,3 +81,9 @@ deploy:
   type: git
   repo: git@github.com:FE-Home/FE-Home.github.io.git
   branch: master
+
+menu:
+  home: / 
+  tags: /tags
+  categories: /categories
+  archives: /archives
