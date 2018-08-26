@@ -1,153 +1,59 @@
-title: js原型该如何深入理解
-date: 2018/8/18
+title: 移动端开发布局和样式的小技巧
+date: 2018/8/26
 
 ---
 
+## 苹果手机一些默认样式 ##
 
-大家刚开始学习js的时候，会遇到一些问题，比如什么是原型，继承的方式，还有闭包又是什么，今天小编就为大家讲解一下我对原型的理解，如果觉得我讲的有问题可以提出来，大家一起探讨一下
+做移动端的时候写的时候很开心，但是在调试苹果手机的时候总是会出现一些问题之前我就遇到过email，telephone这些格式会在苹果手机中有默认的样式，下划线等，为了美观，我们可以添加一行简单的代码便可以实现
 
-1. js原型
-2. js原型练习题
-3. 原型总结
-4. 原型链继承总结
+```
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+```
+哈哈！！这下可以让你的视图更加的美观了
 
+---
 
-<!--more-->
-## <span id="github_ssh">(1) js原型</span>
+关于苹果手机像是按钮之类的最好使用div去写，因为苹果手机一些低版本会有一些小的问题，比如按钮有圆角，这种情况在苹果手机里面是没办法实现的。
 
-*先来讲一下我对原型的理解吧，首先原型是什么，原型是一个对象？还是一个实例呢，其实原型是一个对象，相当于一个构造函数的实例，下面举个例子
+苹果ios8中存在一个问题 display flex 布局是部分失效的，后来查看了一下发现safari是使用webkit内核的,改成下面这样就好了
 
-function Person(name,age,number){
-	this.name=name;
-	this.age=age;
-	this.number=number;
-}//构造函数
-//实例
-var person1=new Person(likaizhu,24,1);
-var person2=new Person(zhangshaoqi,22,2);
+```
+display: flex;
+display: -webkit-flex;
+justify-content: center;
+-webkit-justify-content:center;
+```
 
-if(person1.constructor==Person
-)//true
+---
 
-if(person2.constructor==Person
-)//true
+iphone6 和 iphone6 plus，之前曾经遇到过一个这样的问题，页面跳转选择的时候，iphone6 plus的按钮出现挪窜的情况，针对不同手机出现的问题，我们去浏览器上去调试没有办法解决，我给大家推荐一个好用的东西
+假如你有一台mac那么你就可以使用这个工具了
 
-//
-Person.prototype.constructor==Person
-person1.constructor==Person
-person1.__proto__==Person.prototype
-Person.__proto__==Function.prototype
-Object.__proto__==Function.prototype
-Person.prototype.__proto__==Object.prototype
-Object.prototype.__proto__==null
+第一步：打开苹果手机打开设置 > safari浏览器 > 高级 > web检查器
+第二步：打开mac的偏好设置 > 高级 > 在菜单栏中显示'开发'菜单
+第三步：连接手机和电脑选择信任，然后在手机上打开你需要调试的页面
+第四步：在控制台上面就可以捕捉到问题了
 
+## 全屏活动落地页面之调试##
 
-*理解一下
-函数上有prototype属性
-原型对象相当于构造函数的一个实例  Person.prototype相当于person1
-构造函数上有prototype constructor需要在prototype上获取
-实例上是可以获取到construcor属性的
+做活动落地页面的时候，大家肯定遇到过图片失真的问题，或者图片过大导致加载缓慢的问题，这里有一个小技巧
 
+1.关于图片的问题，ps上有一个很好用插件cutterman，可以使用你灵活的小手指把他下载下来然后在window下找到Extensions选择cutterman切图神器，可以随意的切下你想要图片还可以选择图片的质量和1倍 2倍 3倍图，省去了切图的烦恼，图片质量可以调控不用担心加载过慢了
 
-*其中的一种继承方式---原型链继承
-function Person(name){
-	this.name=name;
-};
-Person.prototype={
-	sayName:function(){
-		return this.name
-	}
-};
-var person1=new Person('likaizhu');
-person1.sayName()
+2.关于落地页显示问题，这个方法在落地页或者一些官网的banner上都可以使用一般ui给的图你可以计算好比例然后看代码
 
-//
-person1.__proto__===Person.prototype
-Person.prototype.__proto__===Function.prototype
+```
+width:100%;
+height:0;
+padding-bottom:30%;
+background:url('图片地址') no-repeat;
+background-size:100% 100%;
+```
 
-
-
-## <span id="base">(2)js原型练习题</span>
-
-1.person1.__proto__ 是什么？
-2.Person.__proto__ 是什么？
-3.Person.prototype.__proto__ 是什么？
-4.Object.__proto__ 是什么？
-5.Object.prototype__proto__ 是什么？
-答案：
-第一题：
-因为 person1.__proto__ === person1 的构造函数.prototype
-因为 person1的构造函数 === Person
-所以 person1.__proto__ === Person.prototype
-
-第二题：
-因为 Person.__proto__ === Person的构造函数.prototype
-因为 Person的构造函数 === Function
-所以 Person.__proto__ === Function.prototype
-
-第三题：
-Person.prototype 是一个普通对象，我们无需关注它有哪些属性，只要记住它是一个普通对象。
-因为一个普通对象的构造函数 === Object
-所以 Person.prototype.__proto__ === Object.prototype
-
-第四题，参照第二题，因为 Person 和 Object 一样都是构造函数
-
-第五题：
-Object.prototype 对象也有proto属性，但它比较特殊，为 null 。因为 null 处于原型链的顶端，这个只能记住。
-Object.prototype.__proto__ === null
+这个办法可以让图片依然保持比例不至于失真
 
 
 
 
-
-
-## <span id="base">(3)原型总结</span>
-
-构造函数.prototype.constructor===构造函数
-实例.constructor===构造函数
-构造函数.prototype===普通对象
-构造函数.prototype.constructor==实例.constructor
-实例.__proto__===构造函数.prototype
-
-
-
-构造器.__proto__==Function.prototype
-构造器.prototype.__proto__==Object.prototype
-构造器.constructor==Function
-
-## <span id="base">(4)原型链继承总结</span>
-
-function Person(){};
-Person.prototype={
-	name:’likaizhu’
-};
-var person1=new Person();
-person1.__proto__通过__proto__去继承Person.prototype上的方法和属性
-person1这个实例继承了Person这个构造函数原型上的所有方法和属性
-当穿件一个新的对象的时候，想去调用方法，找不到去构造函数.prototype(原型)上去查找，然后再去构造函数.prototype.__proto__上去查找。
-
-
-
-function Person(name){
-	this.name=name;
-};
-Person.prototype={
-	sayName:function(){
-		return name
-	}
-};//重写原型,Person是object,object.prototype是{}空对象
-var p=new Person('likaizhu');
-p.__proto__===p.constructor.prototype
-false
-
-
-function Person(name){
-	this.name=name;
-};
-Person.prototype.getName=function(){
-	return name
-}//修改原型,原型是function
-var p=new Person('likaizhu');
-p.__proto__===p.constructor.prototype
-
-true
