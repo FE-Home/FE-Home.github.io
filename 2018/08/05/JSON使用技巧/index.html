@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="tech-pub前端">
 <meta property="og:description" content="JSON序列化  1234567891011var xiaoming = &amp;#123;    name: &apos;小明&apos;,    age: 14,    gender: true,    height: 1.65,    grade: null,    &apos;middle-school&apos;: &apos;\&quot;W3C\&quot; Middle School&apos;,    skills: [&apos;JavaScript&apos;, &apos;Java&apos;,">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-24T08:45:18.091Z">
+<meta property="og:updated_time" content="2018-08-30T06:03:43.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSON使用技巧">
 <meta name="twitter:description" content="JSON序列化  1234567891011var xiaoming = &amp;#123;    name: &apos;小明&apos;,    age: 14,    gender: true,    height: 1.65,    grade: null,    &apos;middle-school&apos;: &apos;\&quot;W3C\&quot; Middle School&apos;,    skills: [&apos;JavaScript&apos;, &apos;Java&apos;,">
@@ -297,6 +297,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/05/JSON使用技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/05/JSON使用技巧/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -324,6 +334,7 @@
         <ol>
 <li><p>JSON序列化</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span>,</span><br><span class="line">    age: <span class="number">14</span>,</span><br><span class="line">    gender: <span class="literal">true</span>,</span><br><span class="line">    height: <span class="number">1.65</span>,</span><br><span class="line">    grade: <span class="literal">null</span>,</span><br><span class="line">    <span class="string">'middle-school'</span>: <span class="string">'\"W3C\" Middle School'</span>,</span><br><span class="line">    skills: [<span class="string">'JavaScript'</span>, <span class="string">'Java'</span>, <span class="string">'Python'</span>, <span class="string">'Lisp'</span>]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">JSON</span>.stringify(xiaoming);</span><br><span class="line"><span class="comment">//'&#123;"name":"明","age":14,"gender":true,"height":1.65,"grade":null,"middle-school":"\"W3C\" Middle School","skills":["JavaScript","Java","Python","Lisp"]&#125;'</span></span><br></pre></td></tr></table></figure>
+ <a id="more"></a>
 </li>
 <li><p>对序列化后的字符串进行优化，缩进处理</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JSON</span>.stringify(xiaoming, <span class="literal">null</span>, <span class="string">' '</span>);</span><br></pre></td></tr></table></figure>
@@ -415,6 +426,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -674,6 +688,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'UdMFWDR0tHViq05YaWesofvk-gzGzoHsz',
+        appKey: '1xaCGtsPPq3bsA9gneeD182k',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 

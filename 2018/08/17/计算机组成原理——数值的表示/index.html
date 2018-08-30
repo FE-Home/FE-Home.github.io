@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+<meta name="description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。">
 <meta name="keywords" content="IEEE754">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机组成原理——数值的表示">
 <meta property="og:url" content="http://yoursite.com/2018/08/17/计算机组成原理——数值的表示/index.html">
 <meta property="og:site_name" content="tech-pub前端">
-<meta property="og:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+<meta property="og:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-24T08:45:18.124Z">
+<meta property="og:updated_time" content="2018-08-30T06:02:53.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机组成原理——数值的表示">
-<meta name="twitter:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。 定点数以八位机器数举例 原码1210  =&amp;gt; 0000 1010  -10 =&amp;gt; 1000 1010 原码就是把数值直接用二进制">
+<meta name="twitter:description" content="数值的表示先上代码 123// JavaSctipt// 0.30000000000000004console.log(0.1+0.2) 如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。">
 
 
 
@@ -298,6 +298,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/17/计算机组成原理——数值的表示/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/17/计算机组成原理——数值的表示/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -324,7 +334,7 @@
       
         <h1 id="数值的表示"><a href="#数值的表示" class="headerlink" title="数值的表示"></a>数值的表示</h1><p>先上代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JavaSctipt</span></span><br><span class="line"><span class="comment">// 0.30000000000000004</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">0.1</span>+<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
-<p>如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。</p>
+<p>如果你百度一下，就会知道几乎所有语言都会面临浮点数的精度问题，想要了解IEEE754，要先了解计算机内部的定点数表示法。<br><a id="more"></a></p>
 <h1 id="定点数"><a href="#定点数" class="headerlink" title="定点数"></a>定点数</h1><p>以八位机器数举例</p>
 <h2 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span>  =&gt; <span class="number">0000</span> <span class="number">1010</span>  </span><br><span class="line"><span class="number">-10</span> =&gt; <span class="number">1000</span> <span class="number">1010</span></span><br></pre></td></tr></table></figure>
 <p>原码就是把数值直接用二进制表示出来，正负号用末位0，1来表示。<br>原码有诸多弊端，比如：数值的减法不能用加法来计算。在十进制中10-10和10+(-10)是等效的，但是在原码表示法的机器数运算中，10+(-10)却得到了1001 0100的结果，显然不等于0 。在计算机内部，处理运算是用与或非门来控制的，加减法分别用两套电路有些浪费资源，我们能否用加法电路来实现减法呢？<br>其次，0和-0在原码中竟然是不同的表示法，但是这对运算并没有帮助，反而浪费了一个表示位置。</p>
@@ -429,6 +439,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -713,6 +726,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'UdMFWDR0tHViq05YaWesofvk-gzGzoHsz',
+        appKey: '1xaCGtsPPq3bsA9gneeD182k',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
