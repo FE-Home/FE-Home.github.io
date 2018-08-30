@@ -8,6 +8,7 @@ categories:
 ---
 
 ## 部署步骤
+<!--more-->
 
 ### Android
 

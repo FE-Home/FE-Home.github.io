@@ -8,6 +8,7 @@ categories:
 
 * 效果图
 ![1.jpg](./1.jpg)
+<!--more-->
 
 * 代码
 
