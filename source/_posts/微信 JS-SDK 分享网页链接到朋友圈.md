@@ -42,7 +42,7 @@ categories:
 
     * 获取签名signature
         * 定义时间戳 ` timestamp = +(new Date) `
-        * 定义随机字符串 `noncestr = Math.random() * 10000`
+        * 定义随机字符串 `noncestr = Math.random() * 10000 + ''`，必须是字符串，否则在IOS下会出现 `config:fail`
         * 当前网页地址 `url = window.location.href.split('#')[0]`
         * 有效的jsapi_ticket `jsapi_ticket = ticket`
         * 获取签名signature
