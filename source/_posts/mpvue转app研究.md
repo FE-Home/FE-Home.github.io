@@ -8,6 +8,7 @@ categories:
 1. mpvue 转 app 实现方式
 2. 可能遇到的难点或复杂点
 
+<!--more-->
 ### 结果：
 #### 基本放弃 mpvue 直接转 app ,采用 [uniapp](http://uniapp.dcloud.io/) 更合适，原因：
 1. [mpvue官方文档](http://mpvue.com/)，对于一份代码跑三端的实现归结为理想状态，目前并未实现，只有一句话可供参考，网上也几乎找不到基于 mpvue 实现的移动端 app 案例，可实现转 h5，但需要一套新的 build 规则需要趟坑。
