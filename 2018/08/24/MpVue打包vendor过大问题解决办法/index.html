@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="MpVue打包vendor过大问题解决办法问题描述：mpvue 打包的小程序会自动将重复引用打包到 static -&amp;gt; js -&amp;gt; vendor, 当引用的第三方库过多时，vendor 就会超出 500K ，小程序开发者工具有 500k 限制，大于 500k 的包不进行转码和压缩，此时就可能导致预览失败，文件体积超过 2M 限制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MpVue打包vendor过大问题解决办法">
+<meta property="og:url" content="http://yoursite.com/2018/08/24/MpVue打包vendor过大问题解决办法/index.html">
+<meta property="og:site_name" content="tech-pub前端">
+<meta property="og:description" content="MpVue打包vendor过大问题解决办法问题描述：mpvue 打包的小程序会自动将重复引用打包到 static -&amp;gt; js -&amp;gt; vendor, 当引用的第三方库过多时，vendor 就会超出 500K ，小程序开发者工具有 500k 限制，大于 500k 的包不进行转码和压缩，此时就可能导致预览失败，文件体积超过 2M 限制">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-03T02:29:45.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MpVue打包vendor过大问题解决办法">
+<meta name="twitter:description" content="MpVue打包vendor过大问题解决办法问题描述：mpvue 打包的小程序会自动将重复引用打包到 static -&amp;gt; js -&amp;gt; vendor, 当引用的第三方库过多时，vendor 就会超出 500K ，小程序开发者工具有 500k 限制，大于 500k 的包不进行转码和压缩，此时就可能导致预览失败，文件体积超过 2M 限制">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/24/MpVue打包vendor过大问题解决办法/"/>
+
+
+
+
+
+  <title>MpVue打包vendor过大问题解决办法 | tech-pub前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tech-pub前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/MpVue打包vendor过大问题解决办法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tech-pub前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MpVue打包vendor过大问题解决办法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T00:00:00+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baolong/" itemprop="url" rel="index">
+                    <span itemprop="name">baolong</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/24/MpVue打包vendor过大问题解决办法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/24/MpVue打包vendor过大问题解决办法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MpVue打包vendor过大问题解决办法"><a href="#MpVue打包vendor过大问题解决办法" class="headerlink" title="MpVue打包vendor过大问题解决办法"></a>MpVue打包vendor过大问题解决办法</h2><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>mpvue 打包的小程序会自动将重复引用打包到 <code>static</code> -&gt; <code>js</code> -&gt; <code>vendor</code>, 当引用的第三方库过多时，<code>vendor</code> 就会超出 500K ，小程序开发者工具有 500k 限制，大于 500k 的包不进行转码和压缩，此时就可能导致预览失败，文件体积超过 2M 限制</p>
+<a id="more"></a>
+<h4 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h4><p>1、减少不必要第三方库的使用，或采用精简版的库，满足功能即可<br>2、拆分 <code>vendor</code> ，使每个 <code>js</code> 文件体积小于 500K 开发者工具进行一次压缩就可能低于 2M 了</p>
+<p>本篇文章主要描述如何采用第二种方法</p>
+<h3 id="拆分-vendor-具体步骤"><a href="#拆分-vendor-具体步骤" class="headerlink" title="拆分 vendor 具体步骤"></a>拆分 <code>vendor</code> 具体步骤</h3><h4 id="1-对-vendor-进行拆包"><a href="#1-对-vendor-进行拆包" class="headerlink" title="1.对 vendor 进行拆包"></a>1.对 <code>vendor</code> 进行拆包</h4><ul>
+<li>找到 <code>build</code> -&gt; <code>webpack.dev.conf.js</code>, mpvue 的 <code>npm run dev</code> 使用的就是这份打包配置</li>
+<li>找到 <code>CommonsChunkPlugin</code>, 这是 <code>webpack</code> 提供的拆包工具 <a href="https://segmentfault.com/a/1190000012828879" target="_blank" rel="noopener">详解CommonsChunkPlugin</a></li>
+<li>修改如下配置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//原配置</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'vendor'</span>,</span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// console.log(module.resource)</span></span><br><span class="line">        <span class="comment">// any required modules inside node_modules are extracted to vendor</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) &gt;= <span class="number">0</span></span><br><span class="line">        )|| count &gt; <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'manifest'</span>,</span><br><span class="line">      chunks: [<span class="string">'vendor'</span>]</span><br><span class="line">  	&#125;),</span><br></pre></td></tr></table></figure>
+<p>修改为： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'vendor'</span>,</span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// console.log(module.resource)</span></span><br><span class="line">        <span class="comment">// any required modules inside node_modules are extracted to vendor</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) &gt;= <span class="number">0</span></span><br><span class="line">        )|| count &gt; <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    <span class="comment">//新增打包文件</span></span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'webim'</span>, <span class="comment">//新打包文件名</span></span><br><span class="line">      chunks: [<span class="string">'vendor'</span>], <span class="comment">//拆分模块名</span></span><br><span class="line">      minChunks: <span class="function"><span class="keyword">function</span> (<span class="params">module, count</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">module</span>.resource + count)</span><br><span class="line">        <span class="comment">// 以下是拆分规则，返回true 则拆分，以下规则是将 libs 下的文件单独打包</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">          <span class="built_in">module</span>.resource &amp;&amp;</span><br><span class="line">          /\.js$/.test(<span class="built_in">module</span>.resource) &amp;&amp;</span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'libs'</span>) &gt;= <span class="number">0</span> &amp;&amp; </span><br><span class="line">          <span class="built_in">module</span>.resource.indexOf(<span class="string">'node_modules'</span>) === <span class="number">-1</span></span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;),</span><br><span class="line">	</span><br><span class="line"><span class="comment">//修改入口</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">'manifest'</span>,</span><br><span class="line">      chunks: [<span class="string">'webim'</span>]</span><br><span class="line">    &#125;),</span><br></pre></td></tr></table></figure>
+<p>需要注意的是拆分顺序不能乱， <code>vendor</code> 拆出来的模块才会到 <code>webim</code>, 如果 <code>vendor</code> 对所有模块的返回值都是 false，则 <code>webim</code> 也为空,经过摸索，我的理解是 <code>webim</code> 是对 <code>vendor</code> 进行了再拆分，所以需要拆分的模块一定要先经过 <code>vendor</code> 的筛选。</p>
+<p>经过以上配置， 你的 <code>dist</code> -&gt; <code>static</code> -&gt; <code>js</code> 下应该多了 <code>webim.js</code>,说明已经拆分成功</p>
+<h4 id="2-修改-mpvue-loader-模板"><a href="#2-修改-mpvue-loader-模板" class="headerlink" title="2. 修改 mpvue-loader 模板"></a>2. 修改 mpvue-loader 模板</h4><p>打包后的文件 <code>dist</code> -&gt; <code>pages</code> 里的页面文件， <code>.js</code>中默认引入以下模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'../../../static/js/pages/caseAdvice/main'</span>)</span><br></pre></td></tr></table></figure>
+<p>并没有刚才拆分出来的 <code>webim</code> 的引用，此时程序虽然打包成功，但是缺少模块无法运行</p>
+<p>需要修改 <code>node_modules</code> 中 <code>mpvue-loader</code> -&gt; <code>lib</code> -&gt; <code>mp-compiler</code> -&gt; <code>templates.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//源码</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/$&#123;name&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<p>修改为： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改后</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/manifest'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/webim'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/vendor'</span>)</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'$&#123;prefix&#125;static/js/$&#123;name&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<p>注意：模板的引用顺序不能乱需要按照 <code>webpack.dev.conf.js</code> 中的配置从后往前引入 。</p>
+<h4 id="3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置"><a href="#3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置" class="headerlink" title="3.修改了 node_modules 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 mpvue-loader 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 build -&gt; webpack.base.conf.js 中添加 loader 查询路径配置"></a>3.修改了 <code>node_modules</code> 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 <code>mpvue-loader</code> 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 <code>build</code> -&gt; <code>webpack.base.conf.js</code> 中添加 loader 查询路径配置</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">resolveLoader: &#123;</span><br><span class="line">  modules: [</span><br><span class="line">    <span class="string">'node_modules'</span>, <span class="comment">//默认路径</span></span><br><span class="line">    path.resolve(<span class="string">"./src/lib"</span>) <span class="comment">//添加的配置路径</span></span><br><span class="line">  ]</span><br><span class="line">&#125;,</span><br><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [...此内容不变，故省略]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>resolveLoader.modules</code> 配置，webpack 将会从这些目录中搜索这些 loaders。不添加配置默认会在 <code>node_modules</code> 中查找，添加配置之后，会按照配置逐级查询， 我的 <code>mpvue-loader</code> 就放在 <code>src</code> 下的 <code>lib</code> 中,详情可参考 <a href="https://www.cnblogs.com/dupd/p/8418874.html" target="_blank" rel="noopener">webpack3.0之loader配置及编写</a></p>
+<h4 id="4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖"><a href="#4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖" class="headerlink" title="4. 如果执行了第三步，请将 node_modules 中的 mpvue-loader 删除，并删除 package.json 中的 mpvue-loader，并添加 mpvue-loader 的运行依赖到当前项目 package.json 的开发依赖中，以下提供我的 mpvue-loader 的运行依赖"></a>4. 如果执行了第三步，请将 <code>node_modules</code> 中的 <code>mpvue-loader</code> 删除，并删除 <code>package.json</code> 中的 <code>mpvue-loader</code>，并添加 <code>mpvue-loader</code> 的运行依赖到当前项目 <code>package.json</code> 的开发依赖中，以下提供我的 <code>mpvue-loader</code> 的运行依赖</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"babelon"</span>: <span class="string">"^1.0.5"</span>,</span><br><span class="line"><span class="string">"consolidate"</span>: <span class="string">"^0.14.0"</span>,</span><br><span class="line"><span class="string">"hash-sum"</span>: <span class="string">"^1.0.2"</span>,</span><br><span class="line"><span class="string">"js-beautify"</span>: <span class="string">"^1.6.14"</span>,</span><br><span class="line"><span class="string">"loader-utils"</span>: <span class="string">"^1.1.0"</span>,</span><br><span class="line"><span class="string">"lru-cache"</span>: <span class="string">"^4.1.1"</span>,</span><br><span class="line"><span class="string">"postcss"</span>: <span class="string">"^6.0.6"</span>,</span><br><span class="line"><span class="string">"postcss-load-config"</span>: <span class="string">"^1.1.0"</span>,</span><br><span class="line"><span class="string">"postcss-selector-parser"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line"><span class="string">"resolve"</span>: <span class="string">"^1.3.3"</span>,</span><br><span class="line"><span class="string">"source-map"</span>: <span class="string">"^0.5.6"</span>,</span><br><span class="line"><span class="string">"vue-hot-reload-api"</span>: <span class="string">"^2.1.0"</span>,</span><br><span class="line"><span class="string">"vue-loader"</span>: <span class="string">"^13.0.4"</span>,</span><br><span class="line"><span class="string">"vue-style-loader"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line"><span class="string">"vue-template-es2015-compiler"</span>: <span class="string">"^1.5.3"</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>至此 <code>vendor</code> 的拆解工作完成，<code>vendor</code> 体积小于500K, 小程序开发者工具顺利完成打包工作。此方法治标不治本，最好的方法还是删库，删需求，小程序提倡简洁，如果功能太多，拆成两个小程序就好，肯德基的小程序就是这么做的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/18/mapVue/" rel="next" title="如何在地图的自定义弹窗使用Vue">
+                <i class="fa fa-chevron-left"></i> 如何在地图的自定义弹窗使用Vue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/25/微信 JS-SDK 分享网页链接到朋友圈/" rel="prev" title="微信 JS-SDK 分享网页链接到朋友圈">
+                微信 JS-SDK 分享网页链接到朋友圈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MpVue打包vendor过大问题解决办法"><span class="nav-number">1.</span> <span class="nav-text">MpVue打包vendor过大问题解决办法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述："><span class="nav-number">1.1.</span> <span class="nav-text">问题描述：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法："><span class="nav-number">1.1.1.</span> <span class="nav-text">解决办法：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分-vendor-具体步骤"><span class="nav-number">1.2.</span> <span class="nav-text">拆分 vendor 具体步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-对-vendor-进行拆包"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.对 vendor 进行拆包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改-mpvue-loader-模板"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 修改 mpvue-loader 模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-修改了-node-modules-中的包，会导致团队-npm-install-出来的结果不一致，所以需要把-mpvue-loader-单独拿出来迁移到项目里。为了-webpack-任然能使用-mpvue-loader-需要在-build-gt-webpack-base-conf-js-中添加-loader-查询路径配置"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.修改了 node_modules 中的包，会导致团队 npm install 出来的结果不一致，所以需要把 mpvue-loader 单独拿出来迁移到项目里。为了 webpack 任然能使用 mpvue-loader 需要在 build -&gt; webpack.base.conf.js 中添加 loader 查询路径配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-如果执行了第三步，请将-node-modules-中的-mpvue-loader-删除，并删除-package-json-中的-mpvue-loader，并添加-mpvue-loader-的运行依赖到当前项目-package-json-的开发依赖中，以下提供我的-mpvue-loader-的运行依赖"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 如果执行了第三步，请将 node_modules 中的 mpvue-loader 删除，并删除 package.json 中的 mpvue-loader，并添加 mpvue-loader 的运行依赖到当前项目 package.json 的开发依赖中，以下提供我的 mpvue-loader 的运行依赖</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'UdMFWDR0tHViq05YaWesofvk-gzGzoHsz',
+        appKey: '1xaCGtsPPq3bsA9gneeD182k',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
