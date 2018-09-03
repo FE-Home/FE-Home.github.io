@@ -19,7 +19,7 @@ gs-ui用法：
   </gs-popover>
   <gs-button type='primary' v-popover:popover2>click 激活</gs-button>
 ```
-
+<!--more-->
 于是我让后端返回类似结构，每个名词引用的popover的ref值必须唯一。如下：
 ```html
     <ul>
