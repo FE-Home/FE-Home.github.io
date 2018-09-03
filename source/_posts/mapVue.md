@@ -2,8 +2,9 @@ title: 如何在地图的自定义弹窗使用Vue
 date: 2018/8/18
 categories:
 - zzd
+author: test
 ---
-
+<blockquote class="blockquote-center">blah blah blah</blockquote>
 ## 背景
 最近接触一个以地图为基础的项目，满心欢喜。
 ![alt](http://www.happyzzd.top/static/upload/20180815/upload_e3ebe5214ed3f2f99161aa4baab8804c.png)
@@ -11,7 +12,7 @@ categories:
 但是发现被套路了。
 
 因为项目是vue 项目所以需要对 [天地图](http://www.tianditu.gov.cn/)进行一次封装，（我也第一次听说天地图地图） 好了废话不多说。
-
+<!--more-->
 ## 问题
 由于地图自定弹窗只支持 string，没有办法使用vue 如
 

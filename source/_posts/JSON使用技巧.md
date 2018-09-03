@@ -18,6 +18,8 @@ categories:
     JSON.stringify(xiaoming);
     //'{"name":"明","age":14,"gender":true,"height":1.65,"grade":null,"middle-school":"\"W3C\" Middle School","skills":["JavaScript","Java","Python","Lisp"]}'
     ```
+    <!--more-->
+    
 2. 对序列化后的字符串进行优化，缩进处理
     ```javascript
     JSON.stringify(xiaoming, null, ' ');
