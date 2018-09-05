@@ -13,6 +13,7 @@ categories:
 
 3. 配置安全域名
     * 设置 -> 公众号设置 -> 功能设置，在 JS接口安全域名 设置安全域名
+<!--more-->
 
 4. 码砖
     * index.html 中引入 JS 接口文件 http://res.wx.qq.com/open/js/jweixin-1.2.0.js

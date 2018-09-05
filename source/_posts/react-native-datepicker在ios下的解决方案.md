@@ -10,6 +10,7 @@ tags:
 ### 背景
 
 > react-native-datepicker（以下简称 DatePicker）是用 react-native 开发移动端 app 时常用到的时间选择控件，但是在 IOS 上会有一个问题：如果 DatePicker 在选择日期模式下，日期中年份默认选择当年，而且不能修改
+<!--more-->
 
 ### 解决方案一
 
