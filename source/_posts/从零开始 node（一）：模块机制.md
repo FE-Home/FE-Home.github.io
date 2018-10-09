@@ -13,6 +13,8 @@ categories:
 
 这次从头开始阅读[《深入浅出 Node.js》](https://www.amazon.cn/dp/B00GOM5IL4)，也许这本书比较久远了，但是比较重视原理层面，适合仔细阅读。
 
+<!--more-->
+
 node 中引入模块，需要经历三个步骤
 
 1. 路径分析
