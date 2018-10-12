@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="跨域," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,17 @@
 
 
 
-<meta name="description" content="跨域和CORS最近的一个项目在对接的时候，会报出以下错误：  OPTIONS * 401()Failed to load *: Response to preflight request doesn’t pass access conreol check : No ‘Access-Conrtrl-Allow-Origin’ header is present on the requested re">
-<meta name="keywords" content="跨域">
+<meta name="description" content="从零开始 node（一）：模块机制朱耀华  之前粗略的阅读过《nodejs 权威指南》，但是这本书有点类似于字典或者文档，比较重视核心模块和接口的使用。 这次从头开始阅读《深入浅出 Node.js》，也许这本书比较久远了，但是比较重视原理层面，适合仔细阅读。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="跨域和CORS">
-<meta property="og:url" content="http://yoursite.com/2018/09/02/跨域和CORS/index.html">
+<meta property="og:title" content="从零开始node（一）：模块机制">
+<meta property="og:url" content="http://yoursite.com/2018/10/09/从零开始 node（一）：模块机制/index.html">
 <meta property="og:site_name" content="tech-pub前端">
-<meta property="og:description" content="跨域和CORS最近的一个项目在对接的时候，会报出以下错误：  OPTIONS * 401()Failed to load *: Response to preflight request doesn’t pass access conreol check : No ‘Access-Conrtrl-Allow-Origin’ header is present on the requested re">
+<meta property="og:description" content="从零开始 node（一）：模块机制朱耀华  之前粗略的阅读过《nodejs 权威指南》，但是这本书有点类似于字典或者文档，比较重视核心模块和接口的使用。 这次从头开始阅读《深入浅出 Node.js》，也许这本书比较久远了，但是比较重视原理层面，适合仔细阅读。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-03T02:29:45.371Z">
+<meta property="og:updated_time" content="2018-10-12T04:45:22.966Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="跨域和CORS">
-<meta name="twitter:description" content="跨域和CORS最近的一个项目在对接的时候，会报出以下错误：  OPTIONS * 401()Failed to load *: Response to preflight request doesn’t pass access conreol check : No ‘Access-Conrtrl-Allow-Origin’ header is present on the requested re">
+<meta name="twitter:title" content="从零开始node（一）：模块机制">
+<meta name="twitter:description" content="从零开始 node（一）：模块机制朱耀华  之前粗略的阅读过《nodejs 权威指南》，但是这本书有点类似于字典或者文档，比较重视核心模块和接口的使用。 这次从头开始阅读《深入浅出 Node.js》，也许这本书比较久远了，但是比较重视原理层面，适合仔细阅读。">
 
 
 
@@ -120,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/02/跨域和CORS/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/09/从零开始 node（一）：模块机制/"/>
 
 
 
 
 
-  <title>跨域和CORS | tech-pub前端</title>
+  <title>从零开始node（一）：模块机制 | tech-pub前端</title>
   
 
 
@@ -233,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/跨域和CORS/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/09/从零开始 node（一）：模块机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="tianyu">
@@ -250,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">跨域和CORS</h1>
+          <h1 class="post-title" itemprop="name headline">从零开始node（一）：模块机制</h1>
         
 
         <div class="post-meta">
@@ -262,8 +261,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-02T17:50:21+08:00">
-                2018-09-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-09T19:18:10+08:00">
+                2018-10-09
               </time>
             
 
@@ -285,8 +284,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
                   </a>
                 </span>
 
@@ -303,8 +302,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/02/跨域和CORS/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/02/跨域和CORS/" itemprop="commentCount"></span>
+                <a href="/2018/10/09/从零开始 node（一）：模块机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/09/从零开始 node（一）：模块机制/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -332,57 +331,52 @@
       
 
       
-        <h1 id="跨域和CORS"><a href="#跨域和CORS" class="headerlink" title="跨域和CORS"></a>跨域和CORS</h1><p>最近的一个项目在对接的时候，会报出以下错误：</p>
-<blockquote>
-<font color="red">OPTIONS <strong>*</strong> 401()</font><br><font color="red">Failed to load <strong>*</strong>: Response to preflight request doesn’t pass access conreol check : No ‘Access-Conrtrl-Allow-Origin’ header is present on the requested resoutce. Origin ‘<a href="http://localhost:10001&#39;" target="_blank" rel="noopener">http://localhost:10001&#39;</a> is not allowed access.</font>
-</blockquote>
-<p>直译过来是 OPTIONS 请求错误，response 的 header 里面没有 ‘Access-Conrtrl-Allow-Origin’字段。</p>
-<p>如果在开发过程中看到这个错误的话就可以直接截图给后端让他改了（虽然产生原因在浏览器……</p>
+        <h1 id="从零开始-node（一）：模块机制"><a href="#从零开始-node（一）：模块机制" class="headerlink" title="从零开始 node（一）：模块机制"></a>从零开始 node（一）：模块机制</h1><blockquote class="blockquote-center">朱耀华</blockquote>
+
+<p>之前粗略的阅读过《nodejs 权威指南》，但是这本书有点类似于字典或者文档，比较重视核心模块和接口的使用。</p>
+<p>这次从头开始阅读<a href="https://www.amazon.cn/dp/B00GOM5IL4" target="_blank" rel="noopener">《深入浅出 Node.js》</a>，也许这本书比较久远了，但是比较重视原理层面，适合仔细阅读。</p>
 <a id="more"></a>
-<h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>同源是指三个相同：</p>
-<ul>
-<li>协议</li>
-<li>域名</li>
-<li>端口</li>
-</ul>
-<p>如果这三个中间有任何一个不相同，则称之为不同源。<br>在浏览器中，如果源地址和目标地址不同源，则以下三种行为会受到同源策略限制：</p>
-<ul>
-<li>Cookie、LocalStorage 和 IndexDB 读取</li>
-<li>Dom 获取</li>
-<li>AJAX 请求</li>
-</ul>
-<h1 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h1><p>但是在平时的开发过程中，本地使用的服务器是 127.0.0.1，当然和后端的服务器不同源。这时候就不可避免地进行跨域请求。<br>目前在浏览器中对不同源的目标发送 XMLHttpRequest 或者 fetch 都会自动地进行 CORS（Cross-Origin-Resource-Share, 跨域资源共享)，用户和开发者使用起来和正常请求没有差别。</p>
-<h2 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h2><p>上面的错误就是 CORS 的其中一个过程，如果将要发出的跨域请求满足以下条件，那么就属于 CORS 定义下的“简单请求”：</p>
+<p>node 中引入模块，需要经历三个步骤</p>
 <ol>
-<li><p>请求方法是以下三种方法之一：</p>
-<ul>
-<li>HEAD</li>
-<li>GET</li>
-<li>POST</li>
-</ul>
-</li>
-<li><p>HTTP 的头信息不超出以下几种字段：</p>
-<ul>
-<li>Accept</li>
-<li>Accept-Language</li>
-<li>Content-Language</li>
-<li>Last-Event-ID</li>
-<li>Content-Type：只限于三个值 application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ul>
-</li>
+<li>路径分析</li>
+<li>文件定位</li>
+<li>编译执行</li>
 </ol>
-<p>简单请求和普通的请求区别是会在头部加上一个 Origin 字段，如果指定的源不在许可的范围内，就不会返回一个包含’Access-Control-Allow-Origin’的字段，浏览器会报出上面的第二个错误。</p>
-<h2 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h2><p>上面的第一个错误：OPTIONS 401()，显示是 OPTIONS 方法的请求返回了一个 Unauthorized 状态码。<br>如果浏览器发出的跨域请求时非简单请求，那么就会先发出一个”preflight”(预检请求)，来检验源是否在服务器允许 CORS 的源列表内，如果返回的头部包含 Access-Control-Allow-Origin 字段而且值包含该源，那么浏览器会正常发出该请求。</p>
-<p>那么现在错误原因已经很清晰了，首先由于 127.0.0.1 和服务器”不同源”，浏览器自动执行 CORS，非简单请求先发出 OPTIONS 预检，服务器返回的头部没有 Access-Control-Allow-Origin 字段，因此 options 报 401 错误。</p>
-<p>解决办法：截图给后端（设置一下 Access-Control-Allow-Origin 添加 127.0.0.1 或者*（通配符）</p>
-<p>有关于跨域的其他解决方案 JSONP、WebSocket，OPTIONS 请求返回的其他头部字段，请继续阅读参考资料中的博文。</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP 访问控制（CORS）—— MDN</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/same-origin-policy.html" target="_blank" rel="noopener">浏览器的同源策略——ruanyifeng</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81" target="_blank" rel="noopener">HTTP 状态码——Wikipedia</a></li>
-</ol>
-<p><small>朱耀华_20180902</small></p>
+<p>在 Node 中，模块分为两类：<code>核心模块</code>和<code>文件模块</code>。</p>
+<p>核心模块是 node 提供的模块，在 node 源代码编译的过程中，编译进了二进制执行文件。在 node 进程启动时，部分核心模块就被直接加在今内存中，所以这部分核心模块引入时，文件定位和编译执行这两个步骤可以省略掉。核心模块的加载速度是最快的。</p>
+<p>文件模块是用户编写的模块在运行时动态加载，需要完整的路径分析、文件定位、编译执行过程。</p>
+<p>require()方法对相同模块的二次加载采用缓存优先的方式。</p>
+<h2 id="路径分析"><a href="#路径分析" class="headerlink" title="路径分析"></a>路径分析</h2><p>require()的参数——模块标识符分为以下几类</p>
+<ul>
+<li>核心模块，如 http、fs</li>
+<li>相对路径/绝对路径的文件模块</li>
+<li>自定义的文件模块</li>
+</ul>
+<p>自定义的文件模块查找策略是：</p>
+<ul>
+<li>当前文件目录下的 node_modules</li>
+<li>父目录下的 node_modules</li>
+<li>逐级递归，知道根目录下的 node_modules</li>
+</ul>
+<h2 id="文件定位"><a href="#文件定位" class="headerlink" title="文件定位"></a>文件定位</h2><p>Node 会按照.js .json .node 的顺序给模块标识符添加扩展名，在文件定位的过程中是同步阻塞的，所以为标识符带上扩展名会加快速度。</p>
+<p>有时候文件定位后得到一个目录，这时首先查找 package.json，从中取出 main 属性指定文件名定位。以上步骤失败则会把 index.js index.json index.node 作为默认文件名。</p>
+<h2 id="模块编译"><a href="#模块编译" class="headerlink" title="模块编译"></a>模块编译</h2><p>对于不同的文件扩展名，其载入方法也不同。</p>
+<ul>
+<li>js 文件：通过 fs 模块同步读取文件后编译执行</li>
+<li>node 文件：这是用 C/C++编写扩展文件，用 dlopen()方法加载最后编译生成的文件</li>
+<li>json 文件：fs 同步读取后，JSON.parse()解析结果</li>
+</ul>
+<p>编译成功的模块会将其文件路径作为索引缓存在 Module._cache 上。</p>
+<h3 id="JavaScript-模块的编译"><a href="#JavaScript-模块的编译" class="headerlink" title="JavaScript 模块的编译"></a>JavaScript 模块的编译</h3><p>在编译的过程中，Node 对 JavaScript 文件内容进行了头尾包装，一个正常的 JavaScript 文件包装成如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">exports, require, module, __filename, __dirname</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">"math"</span>)</span><br><span class="line">  exports.area = <span class="function"><span class="keyword">function</span>(<span class="params">radius</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.PI * radius * radius</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>CommonJS 规范中存在着 require、exports、module、__filename、__dirname 这几个变量存在，就是由此而来，同事还对每个模块文件之间进行了作用域隔离。</p>
+<p>*关于 exports 和 module.exports，exports 是对 module.exports 的引用，所以直接对 exports 赋值会造成指针丢失，并不会导出模块。</p>
+<h3 id="C-C-模块的编译"><a href="#C-C-模块的编译" class="headerlink" title="C/C++模块的编译"></a>C/C++模块的编译</h3><p>node 文件是 C/C++编写编译后生成的，所以这一部分只有加载和执行，执行效率较高。</p>
+<p>dlopen()方法在 windows 和*nix 平台有不同的实现，通过 libuv 兼容层进行封装。</p>
+<h3 id="JSON-文件的编译"><a href="#JSON-文件的编译" class="headerlink" title="JSON 文件的编译"></a>JSON 文件的编译</h3><p>读取到内容之后，调用 JSON.parse()得到对象，将其赋给 exports。</p>
+<p>内建模块：使用 C/C++编写，主要供其他模块使用的模块，比如 fs 模块。JavaScript 核心模块主要扮演的职责有两类：一类是作为 C/C++内建模块的封装层和桥接层，<br>供文件模块调用；一类是纯粹的功能模块，它不需要跟底层打交道，但是又十分重要。</p>
+<p>扩展模块：用户使用 C/C++编写的模块</p>
+<p>*有关内建模块和扩展模块的编译和加载以后再讨论……</p>
 
       
     </div>
@@ -398,12 +392,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/跨域/" rel="tag"># 跨域</a>
-          
-        </div>
-      
 
       
       
@@ -413,8 +401,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/31/meta标签的使用说明/" rel="next" title="meta 标签的使用说明">
-                <i class="fa fa-chevron-left"></i> meta 标签的使用说明
+              <a href="/2018/09/13/一个栗子引发的思考/" rel="next" title="一个栗子引发的思考">
+                <i class="fa fa-chevron-left"></i> 一个栗子引发的思考
               </a>
             
           </div>
@@ -423,8 +411,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/13/一个栗子引发的思考/" rel="prev" title="一个栗子引发的思考">
-                一个栗子引发的思考 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/11/从零开始 node（二）：Event Loop/" rel="prev" title="从零开始 node（二）：Event Loop">
+                从零开始 node（二）：Event Loop <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -560,7 +548,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#跨域和CORS"><span class="nav-number">1.</span> <span class="nav-text">跨域和CORS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同源策略"><span class="nav-number">2.</span> <span class="nav-text">同源策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS"><span class="nav-number">3.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单请求"><span class="nav-number">3.1.</span> <span class="nav-text">简单请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非简单请求"><span class="nav-number">3.2.</span> <span class="nav-text">非简单请求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从零开始-node（一）：模块机制"><span class="nav-number">1.</span> <span class="nav-text">从零开始 node（一）：模块机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#路径分析"><span class="nav-number">1.1.</span> <span class="nav-text">路径分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件定位"><span class="nav-number">1.2.</span> <span class="nav-text">文件定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块编译"><span class="nav-number">1.3.</span> <span class="nav-text">模块编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript-模块的编译"><span class="nav-number">1.3.1.</span> <span class="nav-text">JavaScript 模块的编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-C-模块的编译"><span class="nav-number">1.3.2.</span> <span class="nav-text">C/C++模块的编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-文件的编译"><span class="nav-number">1.3.3.</span> <span class="nav-text">JSON 文件的编译</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

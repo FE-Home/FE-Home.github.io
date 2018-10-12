@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="从零开始 node（二）：Event Loop朱耀华  第三、四章讲的是异步 I/O、异步编程，而实现异步的工具就是 Event Loop。在这里可以将浏览器环境和 Node 环境下的 Event Loop 对比来学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始 node（二）：Event Loop">
+<meta property="og:url" content="http://yoursite.com/2018/10/11/从零开始 node（二）：Event Loop/index.html">
+<meta property="og:site_name" content="tech-pub前端">
+<meta property="og:description" content="从零开始 node（二）：Event Loop朱耀华  第三、四章讲的是异步 I/O、异步编程，而实现异步的工具就是 Event Loop。在这里可以将浏览器环境和 Node 环境下的 Event Loop 对比来学习。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-12T04:45:22.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从零开始 node（二）：Event Loop">
+<meta name="twitter:description" content="从零开始 node（二）：Event Loop朱耀华  第三、四章讲的是异步 I/O、异步编程，而实现异步的工具就是 Event Loop。在这里可以将浏览器环境和 Node 环境下的 Event Loop 对比来学习。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/11/从零开始 node（二）：Event Loop/"/>
+
+
+
+
+
+  <title>从零开始 node（二）：Event Loop | tech-pub前端</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">tech-pub前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/11/从零开始 node（二）：Event Loop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="tianyu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tech-pub前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从零开始 node（二）：Event Loop</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-11T17:37:19+08:00">
+                2018-10-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/11/从零开始 node（二）：Event Loop/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/11/从零开始 node（二）：Event Loop/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="从零开始-node（二）：Event-Loop"><a href="#从零开始-node（二）：Event-Loop" class="headerlink" title="从零开始 node（二）：Event Loop"></a>从零开始 node（二）：Event Loop</h1><blockquote class="blockquote-center">朱耀华</blockquote>
+
+<p>第三、四章讲的是异步 I/O、异步编程，而实现异步的工具就是 Event Loop。在这里可以将浏览器环境和 Node 环境下的 Event Loop 对比来学习。</p>
+<a id="more"></a>
+<p>首先看一个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"timer1"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"promise1"</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"timer2"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"promise2"</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浏览器环境</span></span><br><span class="line"><span class="comment">// VM82:2 timer1</span></span><br><span class="line"><span class="comment">// VM82:5 promise1</span></span><br><span class="line"><span class="comment">// VM82:10 timer2</span></span><br><span class="line"><span class="comment">// VM82:13 promise2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Node环境 v8.5.0</span></span><br><span class="line"><span class="comment">// tick2.js:2  timer1</span></span><br><span class="line"><span class="comment">// tick2.js:10 timer2</span></span><br><span class="line"><span class="comment">// tick2.js:5  promise1</span></span><br><span class="line"><span class="comment">// tick2.js:13  promise2</span></span><br></pre></td></tr></table></figure>
+<p>产生原因就在于两种环境下的 Event Loop 策略和过程不同。</p>
+<h2 id="浏览器环境下的-Event-Loop"><a href="#浏览器环境下的-Event-Loop" class="headerlink" title="浏览器环境下的 Event Loop"></a>浏览器环境下的 Event Loop</h2><p>浏览器环境下的异步操作分为两种：宏任务（macrotask）和微任务（microtask）。</p>
+<p>宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering</p>
+<p>微任务包括 process.nextTick ，promise ，Object.observe ，MutationObserver</p>
+<p>重点来了：<br>在每一次 Event Loop 中，从宏任务队列中取出一个任务执行，该任务执行的过程中微任务的回调函数加入到微任务队列中，当宏任务执行结束，开始执行微任务，直到队列清空。再取出下一个宏任务重复以上操作。</p>
+<p>举个栗子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">1000</span>; i++) &#123;</span><br><span class="line">    i == <span class="number">999</span> &amp;&amp; resolve()</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 3 5 4 1</span></span><br></pre></td></tr></table></figure>
+<p>看懂这个你才算真正理解了浏览器端的 Event Loop。</p>
+<p>流程分析：</p>
+<ol>
+<li>首先从宏任务队列中取出一个任务即 script，顺序执行。</li>
+<li>setTimeOut 立即执行（注意宏任务微任务区分的是回调），将回调函数加入宏任务队尾，继续执行。</li>
+<li>new Promise 立即执行构造函数，输出 2，3，在循环 1000 次之后执行了 resolve，将 then 的回调函数加入微任务队尾。</li>
+<li>输出 5，该宏任务执行完成，开始执行微任务队列，取出队首 then 的回调函数执行，输出 4。</li>
+<li>微任务队列清空，取出宏任务队首的 setTimeOut 回调，输出 1。</li>
+</ol>
+<p>这时我们来重新分析一下开始的栗子：</p>
+<ol>
+<li>setTimeOut1，2 分别加入宏任务队列。</li>
+<li>script 执行结束，微任务队列为空，取出宏任务队列 setTimeOut1 的回调，输出 timer1，promise 加入微任务队列。</li>
+<li>取出微任务队列队首，输出 promise1。</li>
+<li>取出 setTimeOut2 的回调，输出 timer2，promise 加入微任务队列。</li>
+<li>取出微任务队列队首，输出 promise2。</li>
+</ol>
+<p>至此，浏览器端的 Event Loop 分析完成</p>
+<h2 id="Node-环境下的-Event-Loop"><a href="#Node-环境下的-Event-Loop" class="headerlink" title="Node 环境下的 Event Loop"></a>Node 环境下的 Event Loop</h2><p>分析 Node.js <a href="https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c#L348-L397" target="_blank" rel="noopener">libuv 库源码</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uv_run</span><span class="params">(<span class="keyword">uv_loop_t</span>* loop, uv_run_mode mode)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> timeout;</span><br><span class="line">  <span class="keyword">int</span> r;</span><br><span class="line">  <span class="keyword">int</span> ran_pending;</span><br><span class="line"></span><br><span class="line">  r = uv__loop_alive(loop);</span><br><span class="line">  <span class="keyword">if</span> (!r)</span><br><span class="line">    uv__update_time(loop);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (r != <span class="number">0</span> &amp;&amp; loop-&gt;stop_flag == <span class="number">0</span>) &#123;</span><br><span class="line">    uv__update_time(loop);</span><br><span class="line">    <span class="comment">// timers阶段</span></span><br><span class="line">    uv__run_timers(loop);</span><br><span class="line">    <span class="comment">// I/O callbacks阶段</span></span><br><span class="line">    ran_pending = uv__run_pending(loop);</span><br><span class="line">    <span class="comment">// idle阶段</span></span><br><span class="line">    uv__run_idle(loop);</span><br><span class="line">    <span class="comment">// prepare阶段</span></span><br><span class="line">    uv__run_prepare(loop);</span><br><span class="line"></span><br><span class="line">    timeout = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ((mode == UV_RUN_ONCE &amp;&amp; !ran_pending) || mode == UV_RUN_DEFAULT)</span><br><span class="line">      timeout = uv_backend_timeout(loop);</span><br><span class="line">    <span class="comment">// poll阶段</span></span><br><span class="line">    uv__io_poll(loop, timeout);</span><br><span class="line">    <span class="comment">// check阶段</span></span><br><span class="line">    uv__run_check(loop);</span><br><span class="line">    <span class="comment">// close callbacks阶段</span></span><br><span class="line">    uv__run_closing_handles(loop);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE) &#123;</span><br><span class="line">      uv__update_time(loop);</span><br><span class="line">      uv__run_timers(loop);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    r = uv__loop_alive(loop);</span><br><span class="line">    <span class="keyword">if</span> (mode == UV_RUN_ONCE || mode == UV_RUN_NOWAIT)</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (loop-&gt;stop_flag != <span class="number">0</span>)</span><br><span class="line">    loop-&gt;stop_flag = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   ┌───────────────────────┐</span><br><span class="line">┌─&gt;│        timers         │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     I/O callbacks     │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">│  │     idle, prepare     │</span><br><span class="line">│  └──────────┬────────────┘      ┌───────────────┐</span><br><span class="line">│  ┌──────────┴────────────┐      │   incoming:   │</span><br><span class="line">│  │         poll          │&lt;──connections───     │</span><br><span class="line">│  └──────────┬────────────┘      │   data, etc.  │</span><br><span class="line">│  ┌──────────┴────────────┐      └───────────────┘</span><br><span class="line">│  │        check          │</span><br><span class="line">│  └──────────┬────────────┘</span><br><span class="line">│  ┌──────────┴────────────┐</span><br><span class="line">└──┤    close callbacks    │</span><br><span class="line">   └───────────────────────┘</span><br></pre></td></tr></table></figure>
+<ul>
+<li>timers 阶段：执行 timer（setTimeout、setInterval）的回调</li>
+<li>I/O callbacks 阶段：执行一些系统调用错误，比如网络通信的错误回调</li>
+<li>idle, prepare 阶段：仅 node 内部使用</li>
+<li>poll 阶段：获取新的 I/O 事件, 适当的条件下 node 将阻塞在这里</li>
+<li>check 阶段：执行 setImmediate() 的回调</li>
+<li>close callbacks 阶段：执行 socket 的 close 事件回调</li>
+</ul>
+<p>可以这样理解：<br>在 node 中每一个阶段都维护一个宏任务和微任务队列。在宏任务执行结束之后，执行一次微任务队列中的任务。在等待 I/O 的时候，node 线程会阻塞在 poll 阶段。</p>
+<h3 id="timers-阶段"><a href="#timers-阶段" class="headerlink" title="timers 阶段"></a>timers 阶段</h3><p>timers 阶段 Node 会检查 timer 是否已过期，如果有就把它的回调压入任务队列中执行。但是 js 的定时器并不靠谱，因为在定时器过期的时候，js 的线程可能会在执行另外一个任务。</p>
+<p>setTimeOut 和 setImmediate 的执行顺序也是不固定的。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"timeout"</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"immediate"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>看起来任务是从 timers 阶段开始的，但是如果我们从 poll 阶段的 I/O 开始执行这段代码，就是 setImmediate 先执行，因为 poll 阶段之后就是 check 阶段，执行 setImmediate 代码。</p>
+<h3 id="poll-阶段"><a href="#poll-阶段" class="headerlink" title="poll 阶段"></a>poll 阶段</h3><p>当有已超时的 timer，执行它的回调函数。同步执行 poll 队列里的回调，直到队列为空或执行的回调达到系统上限，而后检查有无预设的 setImmediate()，分两种情况：</p>
+<ul>
+<li>有预设的 setImmediate(),poll 阶段进入 check 阶段，并执行 check 阶段的任务队列；</li>
+<li>无预设的 setImmediate()，阻塞在该阶段等待。如果 timer 队列非空，则开始下一轮事件循环，重新进入到 timer 阶段。</li>
+</ul>
+<h3 id="check-阶段"><a href="#check-阶段" class="headerlink" title="check 阶段"></a>check 阶段</h3><p>setImmediate()的回调加入到 check 队列中顺序执行。</p>
+<p>这时候文章开始的例子就比较容易理解了。我们对照着来看其他几个类似案例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加入两个setImmediate()的回调函数</span></span><br><span class="line">setImmediate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setImmediate延迟执行1"</span>)</span><br><span class="line">  <span class="comment">// 进入下次循环</span></span><br><span class="line">  <span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"promise1"</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"nextTick1"</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">  process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"nextTick2"</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"setImmediate延迟执行2"</span>)</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"正常执行"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//正常执行</span></span><br><span class="line"><span class="comment">// setImmediate延迟执行1</span></span><br><span class="line"><span class="comment">// setImmediate延迟执行2</span></span><br><span class="line"><span class="comment">// nextTick1</span></span><br><span class="line"><span class="comment">// nextTick2</span></span><br><span class="line"><span class="comment">// promise1</span></span><br></pre></td></tr></table></figure>
+<p>两个 setImmediate 先执行，且<code>nextTick</code>队列优先清空，然后再执行其他队列。</p>
+<hr>
+<p>至此，js 执行的两个环境的异步 Event Loop 执行顺序已经介绍清楚。大家可以自己动手来试试执行一下。</p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://www.amazon.cn/dp/B00GOM5IL4" target="_blank" rel="noopener">深入浅出 Node.js</a></li>
+<li><a href="http://lynnelv.github.io/js-event-loop-nodejs" target="_blank" rel="noopener">深入理解 js 事件循环机制（Node.js 篇）</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/33090541" target="_blank" rel="noopener">知乎专栏</a></li>
+<li><a href="https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c#L348-L397" target="_blank" rel="noopener">Node-libuv 源码</a></li>
+<li><a href="https://juejin.im/post/5ba34e54e51d450e5162789b#heading-21" target="_blank" rel="noopener">掘金技术征文</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/09/从零开始 node（一）：模块机制/" rel="next" title="从零开始node（一）：模块机制">
+                <i class="fa fa-chevron-left"></i> 从零开始node（一）：模块机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">tianyu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从零开始-node（二）：Event-Loop"><span class="nav-number">1.</span> <span class="nav-text">从零开始 node（二）：Event Loop</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器环境下的-Event-Loop"><span class="nav-number">1.1.</span> <span class="nav-text">浏览器环境下的 Event Loop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-环境下的-Event-Loop"><span class="nav-number">1.2.</span> <span class="nav-text">Node 环境下的 Event Loop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#timers-阶段"><span class="nav-number">1.2.1.</span> <span class="nav-text">timers 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poll-阶段"><span class="nav-number">1.2.2.</span> <span class="nav-text">poll 阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#check-阶段"><span class="nav-number">1.2.3.</span> <span class="nav-text">check 阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">1.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tianyu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'UdMFWDR0tHViq05YaWesofvk-gzGzoHsz',
+        appKey: '1xaCGtsPPq3bsA9gneeD182k',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
